@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Container Workshop</title>
-                <meta name="robots" content="noindex" />
+        <title>Docker入門 - Container Workshop</title>
                 
 
         <!-- Custom HTML head -->
@@ -83,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 概論</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Docker入門</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> 概論</a></li><li class="chapter-item expanded "><a href="chapter_2.html" class="active"><strong aria-hidden="true">2.</strong> Docker入門</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -144,96 +143,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="コンテナ勉強会-概論編"><a class="header" href="#コンテナ勉強会-概論編">コンテナ勉強会 概論編</a></h1>
-<h2 id="目的"><a class="header" href="#目的">目的</a></h2>
-<ul>
-<li>コンテナ(Container, Lightweight Virtualization)の理論を学ぶ</li>
-<li>コンテナとVMの違いを知り, ワークロードによって使い分けられるようになる</li>
-<li>Dockerの使用法を学び，今後アプリケーションの開発の効率を上げる</li>
-<li>Kubernetesなどの機能を学び，コンテナを運用するということを体験する</li>
-</ul>
-<h2 id="対象"><a class="header" href="#対象">対象</a></h2>
-<ul>
-<li>Linuxを使用したことがあり，OSやネットワークの講義レベルの知識がある学生</li>
-</ul>
-<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
-<p>Day1 開発者 + システム管理者向けのコンテナの話</p>
-<ol>
-<li>コンテナ型仮想化概論</li>
-<li>Docker入門</li>
-</ol>
-<p>Day2 システム管理者向けのコンテナの話</p>
-<ol>
-<li>Kubernetes入門: <strong>TBD</strong></li>
-</ol>
-<h2 id="コンテナ型仮想化"><a class="header" href="#コンテナ型仮想化">コンテナ型仮想化</a></h2>
-<p>コンテナ型仮想化とは，軽量な仮想化方式の1つである．
-VMが1つのハードウェアを多重化して複数のハードウェアに見せかけたりするのと比べ，コンテナはOSを仮想化し，あたかも異なる複数のOSのようなものが実行されているように見える機構である．コンテナ内ではOSの起動のようなものは行わず，カーネルなどはホストOSのものを用いるため，VMと比べると起動は高速である．</p>
-<p><strong>注意</strong>: コンテナ型仮想化では，ホストのOSカーネルを使ってコンテナを作成する．そのため，ホストOSと異なるOSのコンテナを作成することはできない．LinuxではLinux, WindowsではWindowsのコンテナを作成することしかできない．</p>
-<p>コンテナは様々な用途で利用され，Webサービス等だけではなく組み込み機器，Machine Learningなどでも利用されることが増えてきた．
-誤解を恐れないでいうと，コンテナが向いていないワークロードをベアメタルかVMを用いて運用するという方向になりつつある．</p>
-<p>コンテナが向いていない要件</p>
-<ul>
-<li>カーネルモジュールなどが大きく影響するシステム</li>
-<li>レスポンスタイムがシビアなシステム(仮想NICなどを経由することが多くなるため)</li>
-<li>パブリッククラウドなどにおけるマルチテナンシー(複数人が共有する環境)</li>
-</ul>
-<p>コンテナはリソースの制限や分離(isolation)に関して言えば，ハードウェアレベルで制御することができないので，VMと比べ弱い．そのためセキュリティやパフォーマンスなどの文脈でパブリッククラウドなどのサービスで利用する際はいくつか注意する必要がある．</p>
-<h3 id="コンテナの歴史"><a class="header" href="#コンテナの歴史">コンテナの歴史</a></h3>
-<p>コンテナの起源は1970年代に登場したUNIXのchrootシステムコールに遡る[1]．
-chrootシステムコールはシステムのルートディレクトリを変更するシステムコールである．これにより簡易的な隔離環境を作ることができ，HTTP Serverなどで用いられ，ディレクトリトラバーサルなどの対策に使われた．</p>
-<p>2000年にはFreeBSD jail が生まれ，chroot以外にも様々な隔離機能が搭載され，この跡に生まれてくるコンテナ型仮想化に踏襲された．</p>
-<p>2006年頃，Linux 2.6にてnamespace(後述)という機能が実装された．
-この機能を用いて登場したのがLXCやDockerといった現代のコンテナ型仮想化ソフトウェアである．</p>
-<h2 id="linuxコンテナを構成する機能"><a class="header" href="#linuxコンテナを構成する機能">Linuxコンテナを構成する機能</a></h2>
-<p>Linuxにおけるポピュラーなコンテナは以下の機能によって実装されている．</p>
-<h3 id="namespace"><a class="header" href="#namespace">Namespace</a></h3>
-<p>Linux NamespaceはLinuxカーネルのリソースを分離するための機構．unshareシステムコールやcloneシステムコールでNamespaceを分離することができる．</p>
-<p>Namespaceの種類</p>
-<ul>
-<li>PID Namespace: 
-Process IDを分離することができる．これにより，ホストのOSのプロセスの状態と関係なくコンテナ内のPIDは1からスタートする． <code>ps</code> コマンドなどの結果が変わる．</li>
-<li>Network Namespace
-ネットワークインタフェースの情報をホストから分離する．コンテナ内からホストのNICの情報をみることができなくなる．ホストとの疎通もできなくなるため，仮想Ethernetなどの構築が必要</li>
-<li>UTS Namespace: 
-UTSを分離する． これによりコンテナにホストOSと異なるホスト名をつけることができる．</li>
-<li>Mount Namespace:
-マウントしているファイルを分離することができる．</li>
-<li>User Namespace:
-UID, GID, Capabilityを分離する．コンテナ外の一般ユーザをコンテナ内のrootユーザにマッピングすることができるようになる．</li>
-<li>Time Namespace:
-コンテナの中のタイムゾーンをホストと異なるものが使用できる</li>
-</ul>
-<h3 id="cgroups"><a class="header" href="#cgroups">Cgroups</a></h3>
-<p>CgroupはLinuxカーネルのリソースの使用を制限する機能．プロセス群のCPU, RAM, Disk IO, Network IOなどのハードウェア資源の使用量やプロセスの生成数などを制限することができる．</p>
-<p>Linuxにおけるコンテナの実装は非常にシンプルであり，C言語で数百行程度で記述することができる．</p>
-<h3 id="余談1-bashで作るコンテナ"><a class="header" href="#余談1-bashで作るコンテナ">余談1. Bashで作るコンテナ</a></h3>
-<pre><code class="language-bash">mkdir rootfs
-docker export $(docker create ubuntu:20.04) | tar -C rootfs -xvf -
-unshare --mount --uts --net --pid --user --fork /bin/bash
-chroot rootfs /bin/bash
-mount -t proc proc /proc
-</code></pre>
-<p>psコマンドでプロセスが隔離されていることを確認しよう</p>
-<h3 id="余談2-c言語で作るコンテナ"><a class="header" href="#余談2-c言語で作るコンテナ">余談2. C言語で作るコンテナ</a></h3>
-<p>コンテナのミニマム実装の例: <a href="https://github.com/sai-lab/c2">c2</a></p>
-<h2 id="コンテナの分類"><a class="header" href="#コンテナの分類">コンテナの分類</a></h2>
-<h3 id="アプリケーションコンテナ"><a class="header" href="#アプリケーションコンテナ">アプリケーションコンテナ</a></h3>
-<p>DockerやCRI-Oなどで用いられるコンテナはアプリケーションコンテナと呼ばれる．
-アプリケーションコンテナは単一関心事の原則(Single Concern Princile)という考え方を採用しているコンテナである．
-シンプルに表現すると，1つのコンテナ内で実行するアプリケーションを1つに限定するという原則である．
-これにより，コンテナ内のアプリケーションの依存関係をシンプルにし，スケールが容易になるといったものである．
-LAMP(Linux, Apache, MySQL, PHP)でいうと，Apache(+ PHP)とMySQLを別々のコンテナとして利用し，リクエストの増加に応じてApacheのコンテナのみをスケールすることができる．</p>
-<h3 id="システムコンテナ"><a class="header" href="#システムコンテナ">システムコンテナ</a></h3>
-<p>LXC(LXD), OpenVZはシステムコンテナと呼ばれるコンテナ環境である．
-システムコンテナとは，アプリケーションコンテナと異なり，複数のアプリケーションが動作し，実際のLinux OSと同様に動作するものである．
-systemdなどのinit processが動作し，複数のデーモンプロセスを動かすことが可能だ．
-1つのコンテナのイメージサイズは大きいが，VMなどの構成をそのまま移行することも比較的容易である．
-LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの．</p>
-<p><img src="./img/container-kind.png" alt="container-kind" /></p>
-<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
-<p>[1] 川口直也, コンテナ型仮想化概論, ISBN-13 : 978-4877834784</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="docker"><a class="header" href="#docker">Docker</a></h1>
+                        <h1 id="docker"><a class="header" href="#docker">Docker</a></h1>
 <h2 id="agenda"><a class="header" href="#agenda">Agenda</a></h2>
 <p>話すこと</p>
 <ul>
@@ -537,7 +447,7 @@ AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散
 <p>WindowsやmacOSでDockerをためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
 WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．</p>
-<h2 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h2>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
 <ul>
 <li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
 <li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>
@@ -548,6 +458,9 @@ WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うこと
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="chapter_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
                         
                         <div style="clear: both"></div>
@@ -556,6 +469,9 @@ WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うこと
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="chapter_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
                             </nav>
 
@@ -579,11 +495,6 @@ WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うこと
 
         <!-- Custom JS scripts -->
         
-                        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-                
+        
     </body>
 </html>
