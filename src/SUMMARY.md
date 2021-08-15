@@ -1,3 +1,3 @@
 # Summary
 
-- [概要](./chapter_1.md)
+- [概論](./chapter_1.md)
