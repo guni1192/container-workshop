@@ -1,0 +1,6 @@
+[book]
+authors = ["Takashi IIGUNI"]
+language = "ja"
+multilingual = false
+src = "src"
+title = "Container Workshop"
