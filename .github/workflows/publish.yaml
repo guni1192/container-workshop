@@ -25,3 +25,4 @@ jobs:
         with:
           deploy_key: ${{ secrets.DEPLOY_KEY }}
           publish_dir: ./book
+          cname: container-workshop.guni.dev
