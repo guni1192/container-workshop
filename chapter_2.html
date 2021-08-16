@@ -236,7 +236,7 @@ $ docker run -it ubuntu:21.04 bash
 </ol>
 <h3 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h3>
 <p>Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．</p>
-<pre><code>docker run --name nginx-$USER -d -p 8080:80 nginx:1.19.9
+<pre><code>docker run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
 </code></pre>
 <p>今回はバックグラウンドでNginxを動かすために<code>-d</code>を使用した．
@@ -253,7 +253,7 @@ $ docker run -it ubuntu:21.04 bash
 <li>もう一度 <code>curl http://localhost:8080</code>でNginxにリクエストを送信し，アクセスログが表示されることを確認する．</li>
 </ol>
 <p>終わったらコンテナを止める</p>
-<pre><code>docker stop nginx-$USER
+<pre><code>docker stop nginx
 </code></pre>
 <h3 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h3>
 <p>Jupyter LabはJupyter NotebookのIDEのようなもの．
@@ -266,7 +266,7 @@ docker run --name jupyterlab --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v &quo
 -e, --env list      Set environment variables
 </code></pre>
 <p>アクセスできることを確認できたら止める</p>
-<pre><code>docker stop jupyterlab-$USER
+<pre><code>docker stop jupyterlab
 </code></pre>
 <h2 id="3-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#3-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">3. Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
