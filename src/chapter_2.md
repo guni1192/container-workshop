@@ -112,7 +112,7 @@ $ docker run -it ubuntu:21.04 bash
 Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．
 
 ```
-docker run --name nginx-$USER -d -p 8080:80 nginx:1.19.9
+docker run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
 ```
 
@@ -135,7 +135,7 @@ docker run --name nginx-$USER -d -p 8080:80 nginx:1.19.9
 
 終わったらコンテナを止める
 ```
-docker stop nginx-$USER
+docker stop nginx
 ```
 
 ### Jupyter Labの実行
@@ -156,7 +156,7 @@ docker run --name jupyterlab --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PW
 
 アクセスできることを確認できたら止める
 ```
-docker stop jupyterlab-$USER
+docker stop jupyterlab
 ```
 
 ## 3. Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化
