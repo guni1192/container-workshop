@@ -145,21 +145,13 @@ Webブラウザで実行できる．
 
 ```
 cd docker/jupyter
-docker run --name jupyterlab-$USER --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/datascience-notebook
+docker run --name jupyterlab --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/datascience-notebook
 ```
 
 ```
 --rm                Automatically remove the container when it exits
 -v, --volume list   Bind mount a volume
 -e, --env list      Set environment variables
-```
-
-**学外からrookieを使用している学生向け**
-
-rookie上でフォワードしているコンテナのポート番号をlocalhostの8888に割り当てる．
-http://localhost:8888 にアクセスして確認する．
-```
-ssh -N -L localhost:8888:rookie:CONTAINER_PORT_NUMBER sss
 ```
 
 アクセスできることを確認できたら止める
