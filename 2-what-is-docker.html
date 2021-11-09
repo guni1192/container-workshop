@@ -3,9 +3,8 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title></title>
-                        <base href="/">
-        
+        <title>Docker 入門 - コンテナ勉強会</title>
+                
 
         <!-- Custom HTML head -->
         
@@ -83,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html" class="active"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -144,14 +143,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="docker"><a class="header" href="#docker">Docker</a></h1>
+<h2 id="agenda"><a class="header" href="#agenda">Agenda</a></h2>
+<p>話すこと</p>
+<ul>
+<li>Docker自体の説明</li>
+<li>Dockerの基本的な使い方</li>
+</ul>
+<p>話さないこと</p>
+<ul>
+<li>Dockerの環境構築</li>
+<li>Docker Desktopなどの使い方</li>
+</ul>
+<h2 id="1-dockerとは"><a class="header" href="#1-dockerとは">1. Dockerとは</a></h2>
+<p>Dockerとはコンテナ型仮想化ソフトウェアである．
+Dockerは，コンテナの起動(Run)，コンテナイメージの作成(Build)，コンテナイメージの公開(Share)などの機能を持つ．
+現在最も普及しているコンテナ型仮想化ソフトウェアであり，Amazon Web Service(AWS)のElastic Container Service(ECS)のようなコンテナプラットフォームや，開発者の開発環境など広く使われている．
+Dockerはコンテナの中でもアプリケーションコンテナを扱う．
+アプリケーションコンテナのことをDocker, Inc. は「A standardized unit of software (ソフトウェアの標準化された単位)」だと表現している[1]．
+これは，コンテナとはコードと依存関係をパッケージ化したスタンドアロンなコンピューティング環境であり，高い可搬性(Portability)を持つということを指す．
+要はDockerが入っているLinuxディストリビューションであればCentOSでもUbuntuでも同じコンテナイメージを用いてシステムを構築することができるというものである．</p>
+<h3 id="dockerのアーキテクチャ"><a class="header" href="#dockerのアーキテクチャ">Dockerのアーキテクチャ</a></h3>
+<p><img src="./img/docker-architecture.png" alt="docker-architecture" /></p>
+<p>Dockerは大きく分けて3つの要素から構成される．</p>
+<ul>
+<li><code>docker</code> コマンド: Dockerの操作を行うためのCLI</li>
+<li>Dockerd: Dockerの操作を行うためのAPIを提供する</li>
+<li>Container Runtime: コンテナの実行や状態管理を行うシステム</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="1-containerization.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         
+                                                    <a rel="next" href="3-docker-run.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
                         <div style="clear: both"></div>
                     </nav>
@@ -159,7 +190,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="1-containerization.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
+                                    <a rel="next" href="3-docker-run.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                             </nav>
 
         </div>

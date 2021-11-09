@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Container Workshop</title>
+        <title>コンテナ勉強会</title>
                 <meta name="robots" content="noindex" />
                 
 
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">2.</strong> 概論</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">3.</strong> Docker入門</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -112,7 +112,7 @@
                         </button>
                                             </div>
 
-                    <h1 class="menu-title">Container Workshop</h1>
+                    <h1 class="menu-title">コンテナ勉強会</h1>
 
                     <div class="right-buttons">
                                                 <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -144,10 +144,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>研究室内で行ったコンテナ勉強会の資料です．</p>
-<p>この資料はGitHubで公開しています．
-https://github.com/guni1192/container-workshop</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナ勉強会-概論編"><a class="header" href="#コンテナ勉強会-概論編">コンテナ勉強会 概論編</a></h1>
+                        <p>研究室内で行ったコンテナ勉強会の資料です．
+この資料はGitHubで公開しています．</p>
+<p>https://github.com/guni1192/container-workshop</p>
 <h2 id="目的"><a class="header" href="#目的">目的</a></h2>
 <ul>
 <li>コンテナ(Container, Lightweight Virtualization)の理論を学ぶ</li>
@@ -169,6 +168,7 @@ https://github.com/guni1192/container-workshop</p>
 <ol>
 <li>Kubernetes入門: <strong>TBD</strong></li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナ勉強会-概論編"><a class="header" href="#コンテナ勉強会-概論編">コンテナ勉強会 概論編</a></h1>
 <h2 id="コンテナ型仮想化"><a class="header" href="#コンテナ型仮想化">コンテナ型仮想化</a></h2>
 <p>コンテナ型仮想化とは，軽量な仮想化方式の1つである．
 VMが1つのハードウェアを多重化して複数のハードウェアに見せかけたりするのと比べ，コンテナはOSを仮想化し，あたかも異なる複数のOSのようなものが実行されているように見える機構である．コンテナ内ではOSの起動のようなものは行わず，カーネルなどはホストOSのものを用いるため，VMと比べると起動は高速である．</p>
@@ -264,7 +264,7 @@ Dockerはコンテナの中でもアプリケーションコンテナを扱う�
 <li>Dockerd: Dockerの操作を行うためのAPIを提供する</li>
 <li>Container Runtime: コンテナの実行や状態管理を行うシステム</li>
 </ul>
-<h2 id="2-dockerでいろんなコンテナを実行する"><a class="header" href="#2-dockerでいろんなコンテナを実行する">2. Dockerでいろんなコンテナを実行する</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="2-dockerでいろんなコンテナを実行する"><a class="header" href="#2-dockerでいろんなコンテナを実行する">2. Dockerでいろんなコンテナを実行する</a></h2>
 <p>実際に<code>docker run</code> コマンドを使用してコンテナを実行する．</p>
 <ul>
 <li>Ubuntu</li>
@@ -311,7 +311,7 @@ Server:
 <h3 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h3>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
 <pre><code>                   ↓ コンテナイメージ
-$ docker run -it ubuntu:21.04 bash
+$ docker run -it ubuntu:20.04 bash
                                ↑ 実行するコマンド
 </code></pre>
 <p>今回はbashのような対話シェルを実行するため，以下のようなオプションが必要になる．</p>
@@ -319,7 +319,7 @@ $ docker run -it ubuntu:21.04 bash
 -t, --tty            Allocate a pseudo-TTY
 </code></pre>
 <h4 id="演習-コンテナの内部と外部の比較"><a class="header" href="#演習-コンテナの内部と外部の比較">演習: コンテナの内部と外部の比較</a></h4>
-<p>以下のコマンドをコンテナ内とコンテナ外実行して比べてみよう</p>
+<p>以下のコマンドをコンテナ内とコンテナ外で実行して比べてみよう</p>
 <ol>
 <li><code>uname -r</code> : カーネルのバージョンを表示</li>
 <li><code>cat /etc/*-release</code> : ディストリビューションの情報を表示</li>
@@ -352,7 +352,10 @@ $ docker run -it ubuntu:21.04 bash
 <p>Jupyter LabはJupyter NotebookのIDEのようなもの．
 Webブラウザで実行できる．</p>
 <pre><code>cd docker/jupyter
-docker run --name jupyterlab --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v &quot;$PWD&quot;:/home/jovyan/work jupyter/datascience-notebook
+docker run --name jupyterlab --rm -p 8888:8888 \
+    -e JUPYTER_ENABLE_LAB=yes \
+    -v &quot;$PWD&quot;:/home/jovyan/work \
+    jupyter/datascience-notebook
 </code></pre>
 <pre><code>--rm                Automatically remove the container when it exits
 -v, --volume list   Bind mount a volume
@@ -361,7 +364,7 @@ docker run --name jupyterlab --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v &quo
 <p>アクセスできることを確認できたら止める</p>
 <pre><code>docker stop jupyterlab
 </code></pre>
-<h2 id="3-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#3-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">3. Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="4-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#4-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">4. Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
 サンプルアプリケーションをGoで実装した．</p>
 <pre><code class="language-go">package main
@@ -469,7 +472,7 @@ go-webapp                      multistage        667da54679b2   3 hours ago     
 </ul>
 <p>他にも気をつけるべきことは多いが今回は割愛する．
 コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．</p>
-<h2 id="4-docker-composeの紹介"><a class="header" href="#4-docker-composeの紹介">4. Docker Composeの紹介</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="4-docker-composeの紹介"><a class="header" href="#4-docker-composeの紹介">4. Docker Composeの紹介</a></h2>
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
