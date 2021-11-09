@@ -249,7 +249,7 @@ LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの
 <li>Dockerの環境構築</li>
 <li>Docker Desktopなどの使い方</li>
 </ul>
-<h2 id="1-dockerとは"><a class="header" href="#1-dockerとは">1. Dockerとは</a></h2>
+<h2 id="dockerとは"><a class="header" href="#dockerとは">Dockerとは</a></h2>
 <p>Dockerとはコンテナ型仮想化ソフトウェアである．
 Dockerは，コンテナの起動(Run)，コンテナイメージの作成(Build)，コンテナイメージの公開(Share)などの機能を持つ．
 現在最も普及しているコンテナ型仮想化ソフトウェアであり，Amazon Web Service(AWS)のElastic Container Service(ECS)のようなコンテナプラットフォームや，開発者の開発環境など広く使われている．
@@ -265,7 +265,7 @@ Dockerはコンテナの中でもアプリケーションコンテナを扱う�
 <li>Dockerd: Dockerの操作を行うためのAPIを提供する</li>
 <li>Container Runtime: コンテナの実行や状態管理を行うシステム</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="2-dockerでいろんなコンテナを実行する"><a class="header" href="#2-dockerでいろんなコンテナを実行する">2. Dockerでいろんなコンテナを実行する</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h2>
 <p>実際に<code>docker run</code> コマンドを使用してコンテナを実行する．</p>
 <ul>
 <li>Ubuntu</li>
@@ -382,7 +382,7 @@ docker run --name jupyterlab --rm -p 8888:8888 \
 <p>アクセスできることを確認できたら止める</p>
 <pre><code>docker stop jupyterlab
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="4-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#4-dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">4. Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
 サンプルアプリケーションをGoで実装した．</p>
 <pre><code class="language-go">package main
@@ -490,7 +490,7 @@ go-webapp                      multistage        667da54679b2   3 hours ago     
 </ul>
 <p>他にも気をつけるべきことは多いが今回は割愛する．
 コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="4-docker-composeの紹介"><a class="header" href="#4-docker-composeの紹介">4. Docker Composeの紹介</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h2>
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
