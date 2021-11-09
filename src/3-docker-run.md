@@ -1,4 +1,4 @@
-## Dockerでいろんなコンテナを実行する
+# Dockerでいろんなコンテナを実行する
 
 実際に`docker run` コマンドを使用してコンテナを実行する．
 
@@ -29,7 +29,7 @@ container-training/
 └── README.md
 ```
 
-### 実行環境
+## 実行環境
 
 - OS: Fedora 35
 - Kernel: Linux x86-64 5.14
@@ -67,7 +67,7 @@ Server: Docker Engine - Community
 ```
 
 
-### Ubuntuの実行
+## Ubuntuの実行
 
 Ubuntuのイメージを使用したコンテナでbashを起動する
 ```
@@ -82,7 +82,7 @@ $ docker run -it ubuntu:20.04 bash
 -t, --tty            Allocate a pseudo-TTY
 ```
 
-#### 演習: コンテナの内部と外部の比較
+### 演習: コンテナの内部と外部の比較
 
 以下のコマンドをコンテナ内とコンテナ外で実行して比べてみよう
 1. `uname -r` : カーネルのバージョンを表示
@@ -91,7 +91,7 @@ $ docker run -it ubuntu:20.04 bash
 1.  `hostname` : hostnameの表示
 1. `ip addr`: ネットワークデバイスとIPの表示(事前に`apt update -y && apt install -y iproute2` で `ip` コマンドをインストールする必要がある)
 
-### Nginxの実行
+## Nginxの実行
 
 Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．
 
@@ -110,7 +110,7 @@ docker run --name nginx -d -p 8080:80 nginx:1.19.9
 -p, --publish list   Publish a container's port(s) to the host
 ```
 
-#### 演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する
+### 演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する
 
 1. `curl http://localhost:8080` で`Welcome to nginx!`というレスポンスが返ってくると成功．
 1. `docker ps` コマンドで現在動いているコンテナのIDを確認する．
@@ -122,7 +122,7 @@ docker run --name nginx -d -p 8080:80 nginx:1.19.9
 docker stop nginx
 ```
 
-### Jupyter Labの実行
+## Jupyter Labの実行
 
 Jupyter LabはJupyter NotebookのIDEのようなもの．
 Webブラウザで実行できる．

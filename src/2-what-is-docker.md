@@ -1,4 +1,4 @@
-# Docker
+# Docker 入門
 
 ## Agenda
 
@@ -29,3 +29,5 @@ Dockerは大きく分けて3つの要素から構成される．
 - `docker` コマンド: Dockerの操作を行うためのCLI
 - Dockerd: Dockerの操作を行うためのAPIを提供する
 - Container Runtime: コンテナの実行や状態管理を行うシステム
+    - `containerd`: 高レベルコンテナランタイム
+    - `runc`: 低レベルコンテナランタイム
