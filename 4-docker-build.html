@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html" class="active"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html" class="active"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,7 +143,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
+                        <h1 id="webアプリケーションをコンテナ化する"><a class="header" href="#webアプリケーションをコンテナ化する">Webアプリケーションをコンテナ化する</a></h1>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
 サンプルアプリケーションをGoで実装した．</p>
 <pre><code class="language-go">package main
@@ -200,7 +200,7 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 </ul>
 <pre><code>docker build -f Dockerfile.singlestage -t $USER/go-webapp:singlestage .
 </code></pre>
-<h3 id="マルチステージビルド"><a class="header" href="#マルチステージビルド">マルチステージビルド</a></h3>
+<h2 id="マルチステージビルド"><a class="header" href="#マルチステージビルド">マルチステージビルド</a></h2>
 <p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
 <p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
 よって，コンテナイメージをダウンロードする時間が短くなり，デプロイ時間を短縮することにもつながる．</p>
@@ -242,7 +242,7 @@ go-webapp                      singlestage       6823e5b90199   33 seconds ago  
 go-webapp                      multistage        667da54679b2   3 hours ago      11.4MB
 </code></pre>
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
-<h3 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h3>
+<h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
 <ul>
 <li>1コンテナにつき1プロセス(アプリ) にする</li>
 <li>Immutable Infrastructureにする</li>

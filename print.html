@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -237,7 +237,7 @@ LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの
 <p><img src="./img/container-kind.png" alt="container-kind" /></p>
 <h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
 <p>[1] 川口直也, コンテナ型仮想化概論, ISBN-13 : 978-4877834784</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="docker"><a class="header" href="#docker">Docker</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-入門"><a class="header" href="#docker-入門">Docker 入門</a></h1>
 <h2 id="agenda"><a class="header" href="#agenda">Agenda</a></h2>
 <p>話すこと</p>
 <ul>
@@ -263,9 +263,14 @@ Dockerはコンテナの中でもアプリケーションコンテナを扱う�
 <ul>
 <li><code>docker</code> コマンド: Dockerの操作を行うためのCLI</li>
 <li>Dockerd: Dockerの操作を行うためのAPIを提供する</li>
-<li>Container Runtime: コンテナの実行や状態管理を行うシステム</li>
+<li>Container Runtime: コンテナの実行や状態管理を行うシステム
+<ul>
+<li><code>containerd</code>: 高レベルコンテナランタイム</li>
+<li><code>runc</code>: 低レベルコンテナランタイム</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h2>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h1>
 <p>実際に<code>docker run</code> コマンドを使用してコンテナを実行する．</p>
 <ul>
 <li>Ubuntu</li>
@@ -291,7 +296,7 @@ cd container-training
 │   └── samples
 └── README.md
 </code></pre>
-<h3 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h3>
+<h2 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h2>
 <ul>
 <li>OS: Fedora 35</li>
 <li>Kernel: Linux x86-64 5.14</li>
@@ -326,7 +331,7 @@ Server: Docker Engine - Community
   Version:          0.19.0
   GitCommit:        de40ad0
 </code></pre>
-<h3 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h3>
+<h2 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h2>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
 <pre><code>                   ↓ コンテナイメージ
 $ docker run -it ubuntu:20.04 bash
@@ -336,7 +341,7 @@ $ docker run -it ubuntu:20.04 bash
 <pre><code>-i, --interactive    Keep STDIN open even if not attached
 -t, --tty            Allocate a pseudo-TTY
 </code></pre>
-<h4 id="演習-コンテナの内部と外部の比較"><a class="header" href="#演習-コンテナの内部と外部の比較">演習: コンテナの内部と外部の比較</a></h4>
+<h3 id="演習-コンテナの内部と外部の比較"><a class="header" href="#演習-コンテナの内部と外部の比較">演習: コンテナの内部と外部の比較</a></h3>
 <p>以下のコマンドをコンテナ内とコンテナ外で実行して比べてみよう</p>
 <ol>
 <li><code>uname -r</code> : カーネルのバージョンを表示</li>
@@ -345,7 +350,7 @@ $ docker run -it ubuntu:20.04 bash
 <li><code>hostname</code> : hostnameの表示</li>
 <li><code>ip addr</code>: ネットワークデバイスとIPの表示(事前に<code>apt update -y &amp;&amp; apt install -y iproute2</code> で <code>ip</code> コマンドをインストールする必要がある)</li>
 </ol>
-<h3 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h3>
+<h2 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h2>
 <p>Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．</p>
 <pre><code>docker run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
@@ -356,7 +361,7 @@ $ docker run -it ubuntu:20.04 bash
 -d, --detach         Run container in background and print container ID
 -p, --publish list   Publish a container's port(s) to the host
 </code></pre>
-<h4 id="演習-コンテナの外からcurlを用いてnginxにリクエストを送信する"><a class="header" href="#演習-コンテナの外からcurlを用いてnginxにリクエストを送信する">演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する</a></h4>
+<h3 id="演習-コンテナの外からcurlを用いてnginxにリクエストを送信する"><a class="header" href="#演習-コンテナの外からcurlを用いてnginxにリクエストを送信する">演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する</a></h3>
 <ol>
 <li><code>curl http://localhost:8080</code> で<code>Welcome to nginx!</code>というレスポンスが返ってくると成功．</li>
 <li><code>docker ps</code> コマンドで現在動いているコンテナのIDを確認する．</li>
@@ -366,7 +371,7 @@ $ docker run -it ubuntu:20.04 bash
 <p>終わったらコンテナを止める</p>
 <pre><code>docker stop nginx
 </code></pre>
-<h3 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h3>
+<h2 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h2>
 <p>Jupyter LabはJupyter NotebookのIDEのようなもの．
 Webブラウザで実行できる．</p>
 <pre><code>cd docker/jupyter
@@ -382,7 +387,7 @@ docker run --name jupyterlab --rm -p 8888:8888 \
 <p>アクセスできることを確認できたら止める</p>
 <pre><code>docker stop jupyterlab
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化"><a class="header" href="#dockerfileを書いて自分の書いたwebアプリケーションをコンテナ化">Dockerfileを書いて，自分の書いたWebアプリケーションをコンテナ化</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="webアプリケーションをコンテナ化する"><a class="header" href="#webアプリケーションをコンテナ化する">Webアプリケーションをコンテナ化する</a></h1>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
 サンプルアプリケーションをGoで実装した．</p>
 <pre><code class="language-go">package main
@@ -439,7 +444,7 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 </ul>
 <pre><code>docker build -f Dockerfile.singlestage -t $USER/go-webapp:singlestage .
 </code></pre>
-<h3 id="マルチステージビルド"><a class="header" href="#マルチステージビルド">マルチステージビルド</a></h3>
+<h2 id="マルチステージビルド"><a class="header" href="#マルチステージビルド">マルチステージビルド</a></h2>
 <p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
 <p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
 よって，コンテナイメージをダウンロードする時間が短くなり，デプロイ時間を短縮することにもつながる．</p>
@@ -481,7 +486,7 @@ go-webapp                      singlestage       6823e5b90199   33 seconds ago  
 go-webapp                      multistage        667da54679b2   3 hours ago      11.4MB
 </code></pre>
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
-<h3 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h3>
+<h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
 <ul>
 <li>1コンテナにつき1プロセス(アプリ) にする</li>
 <li>Immutable Infrastructureにする</li>
@@ -490,7 +495,7 @@ go-webapp                      multistage        667da54679b2   3 hours ago     
 </ul>
 <p>他にも気をつけるべきことは多いが今回は割愛する．
 コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h1>
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
@@ -537,31 +542,25 @@ docker compose rm
 # 停止 + 削除
 docker compose down
 </code></pre>
-<h2 id="dockerの活用例"><a class="header" href="#dockerの活用例">Dockerの活用例</a></h2>
-<ul>
-<li>チームでWebアプリケーションをコンテナ化して開発環境の共有</li>
-<li>LaTeXの環境をDocker上に構築</li>
-<li>研究システムを動かすためのDockerfileを書いて再現性を上げて引き継ぎを楽にする</li>
-<li>DockerfileをGitHubにPushしたら，CircleCIやGitHub Actionsなどで自動的にコンテナのビルドを行い，サーバにデプロイ</li>
-</ul>
-<h2 id="おわりに"><a class="header" href="#おわりに">おわりに</a></h2>
-<p>Dockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになる．
-Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
-研究システムの再現性を上げることにもなる．
-仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
-<p>Dockerコンテナを本番環境で運用するという事例も増えている．
-AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
-<p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
-そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良いと．</p>
-<p>WindowsやmacOSでDockerをためしたいのであれば，
-Docker Desktopをインストールしてみると良い．
-WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h1>
 <ul>
 <li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
 <li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>
 <li>[3] Docker, inc., Dockerfile Best practice, https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="おわりに"><a class="header" href="#おわりに">おわりに</a></h1>
+<p>コンテナ型仮想化技術は，軽量な仮想環境として様々なところで利用されている．
+その中でもDockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになるなどのメリットになる．
+Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
+研究システムの再現性を上げることにもなる．
+仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
+<p>Dockerコンテナを本番環境で運用するという事例も増えている．
+AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
+<p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
+そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良い．</p>
+<p>WindowsやmacOSでDockerをためしたいのであれば，
+Docker Desktopをインストールしてみると良い．
+WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うのがおすすめである．</p>
 
                     </main>
 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>README - コンテナ勉強会</title>
+        <title>おわりに - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html" class="active"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html" class="active"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,40 +143,28 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="container-workshop-in-labo"><a class="header" href="#container-workshop-in-labo">Container Workshop in Labo</a></h1>
-<p>研究室内で行ったコンテナ勉強会の資料です．
-この資料はGitHubで公開しています．</p>
-<p>https://github.com/guni1192/container-workshop</p>
-<h2 id="目的"><a class="header" href="#目的">目的</a></h2>
-<ul>
-<li>コンテナ(Container, Lightweight Virtualization)の理論を学ぶ</li>
-<li>コンテナとVMの違いを知り, ワークロードによって使い分けられるようになる</li>
-<li>Dockerの使用法を学び，今後アプリケーションの開発の効率を上げる</li>
-<li>Kubernetesなどの機能を学び，コンテナを運用するということを体験する</li>
-</ul>
-<h2 id="対象"><a class="header" href="#対象">対象</a></h2>
-<ul>
-<li>Linuxを使用したことがあり，OSやネットワークの講義レベルの知識がある学生</li>
-</ul>
-<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
-<p>Day1 開発者 + システム管理者向けのコンテナの話</p>
-<ol>
-<li>コンテナ型仮想化概論</li>
-<li>Docker入門</li>
-</ol>
-<p>Day2 システム管理者向けのコンテナの話</p>
-<ol>
-<li>Kubernetes入門: <strong>TBD</strong></li>
-</ol>
+                        <h1 id="おわりに"><a class="header" href="#おわりに">おわりに</a></h1>
+<p>コンテナ型仮想化技術は，軽量な仮想環境として様々なところで利用されている．
+その中でもDockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになるなどのメリットになる．
+Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
+研究システムの再現性を上げることにもなる．
+仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
+<p>Dockerコンテナを本番環境で運用するという事例も増えている．
+AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
+<p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
+そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良い．</p>
+<p>WindowsやmacOSでDockerをためしたいのであれば，
+Docker Desktopをインストールしてみると良い．
+WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うのがおすすめである．</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
-                                                    <a rel="next" href="1-containerization.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                                                    <a rel="prev" href="references.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
                             </a>
+                        
                         
                         <div style="clear: both"></div>
                     </nav>
@@ -184,10 +172,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                                    <a rel="next" href="1-containerization.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                                    <a rel="prev" href="references.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
                     </a>
+                
                             </nav>
 
         </div>

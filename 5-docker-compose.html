@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html" class="active"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html" class="active"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,7 +143,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h2>
+                        <h1 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h1>
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
@@ -190,25 +190,6 @@ docker compose rm
 # 停止 + 削除
 docker compose down
 </code></pre>
-<h2 id="dockerの活用例"><a class="header" href="#dockerの活用例">Dockerの活用例</a></h2>
-<ul>
-<li>チームでWebアプリケーションをコンテナ化して開発環境の共有</li>
-<li>LaTeXの環境をDocker上に構築</li>
-<li>研究システムを動かすためのDockerfileを書いて再現性を上げて引き継ぎを楽にする</li>
-<li>DockerfileをGitHubにPushしたら，CircleCIやGitHub Actionsなどで自動的にコンテナのビルドを行い，サーバにデプロイ</li>
-</ul>
-<h2 id="おわりに"><a class="header" href="#おわりに">おわりに</a></h2>
-<p>Dockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになる．
-Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
-研究システムの再現性を上げることにもなる．
-仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
-<p>Dockerコンテナを本番環境で運用するという事例も増えている．
-AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
-<p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
-そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良いと．</p>
-<p>WindowsやmacOSでDockerをためしたいのであれば，
-Docker Desktopをインストールしてみると良い．
-WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．</p>
 
                     </main>
 

@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html" class="active"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html" class="active"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,7 +143,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h2>
+                        <h1 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h1>
 <p>実際に<code>docker run</code> コマンドを使用してコンテナを実行する．</p>
 <ul>
 <li>Ubuntu</li>
@@ -169,7 +169,7 @@ cd container-training
 │   └── samples
 └── README.md
 </code></pre>
-<h3 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h3>
+<h2 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h2>
 <ul>
 <li>OS: Fedora 35</li>
 <li>Kernel: Linux x86-64 5.14</li>
@@ -204,7 +204,7 @@ Server: Docker Engine - Community
   Version:          0.19.0
   GitCommit:        de40ad0
 </code></pre>
-<h3 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h3>
+<h2 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h2>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
 <pre><code>                   ↓ コンテナイメージ
 $ docker run -it ubuntu:20.04 bash
@@ -214,7 +214,7 @@ $ docker run -it ubuntu:20.04 bash
 <pre><code>-i, --interactive    Keep STDIN open even if not attached
 -t, --tty            Allocate a pseudo-TTY
 </code></pre>
-<h4 id="演習-コンテナの内部と外部の比較"><a class="header" href="#演習-コンテナの内部と外部の比較">演習: コンテナの内部と外部の比較</a></h4>
+<h3 id="演習-コンテナの内部と外部の比較"><a class="header" href="#演習-コンテナの内部と外部の比較">演習: コンテナの内部と外部の比較</a></h3>
 <p>以下のコマンドをコンテナ内とコンテナ外で実行して比べてみよう</p>
 <ol>
 <li><code>uname -r</code> : カーネルのバージョンを表示</li>
@@ -223,7 +223,7 @@ $ docker run -it ubuntu:20.04 bash
 <li><code>hostname</code> : hostnameの表示</li>
 <li><code>ip addr</code>: ネットワークデバイスとIPの表示(事前に<code>apt update -y &amp;&amp; apt install -y iproute2</code> で <code>ip</code> コマンドをインストールする必要がある)</li>
 </ol>
-<h3 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h3>
+<h2 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h2>
 <p>Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．</p>
 <pre><code>docker run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
@@ -234,7 +234,7 @@ $ docker run -it ubuntu:20.04 bash
 -d, --detach         Run container in background and print container ID
 -p, --publish list   Publish a container's port(s) to the host
 </code></pre>
-<h4 id="演習-コンテナの外からcurlを用いてnginxにリクエストを送信する"><a class="header" href="#演習-コンテナの外からcurlを用いてnginxにリクエストを送信する">演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する</a></h4>
+<h3 id="演習-コンテナの外からcurlを用いてnginxにリクエストを送信する"><a class="header" href="#演習-コンテナの外からcurlを用いてnginxにリクエストを送信する">演習: コンテナの外からcurlを用いて，Nginxにリクエストを送信する</a></h3>
 <ol>
 <li><code>curl http://localhost:8080</code> で<code>Welcome to nginx!</code>というレスポンスが返ってくると成功．</li>
 <li><code>docker ps</code> コマンドで現在動いているコンテナのIDを確認する．</li>
@@ -244,7 +244,7 @@ $ docker run -it ubuntu:20.04 bash
 <p>終わったらコンテナを止める</p>
 <pre><code>docker stop nginx
 </code></pre>
-<h3 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h3>
+<h2 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h2>
 <p>Jupyter LabはJupyter NotebookのIDEのようなもの．
 Webブラウザで実行できる．</p>
 <pre><code>cd docker/jupyter
