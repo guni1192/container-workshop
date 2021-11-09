@@ -278,11 +278,11 @@ Dockerはコンテナの中でもアプリケーションコンテナを扱う�
 <li>Jupyter</li>
 </ul>
 <p>サンプルファイルなどのダウンロード</p>
-<pre><code>git clone https://github.com/sai-lab/container-training.git
-cd container-training
+<pre><code>git clone https://github.com/guni1192/container-workshop.git
+cd container-workshop/samples
 </code></pre>
 <p>フォルダ構成は以下のようになっている</p>
-<pre><code>container-training/
+<pre><code>samples
 ├── docker
 │   ├── go-webapp
 │   │   ├── Dockerfile
@@ -415,17 +415,14 @@ func hello(c echo.Context) error {
 </code></pre>
 <p>各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code class="language-Dockerfile">FROM golang:1.15-alpine3.12
+<pre><code>FROM golang:1.15-alpine3.12
 
 WORKDIR /src
 
 RUN apk add --no-cache make
 
-# Goの外部依存のライブラリが書いてあるファイル
-COPY go.mod go.mod 
+COPY go.mod go.mod
 COPY go.sum go.sum
-
-# ライブラリのダウンロード
 RUN go mod download
 
 COPY . /src
@@ -453,7 +450,7 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 <li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
 </ol>
 <p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code class="language-Dockerfile">FROM golang:1.15-alpine3.12 as builder
+<pre><code>FROM golang:1.15-alpine3.12 as builder
 
 WORKDIR /src
 
@@ -466,7 +463,6 @@ RUN go mod download
 COPY . /src
 RUN make build
 
-## ↓ 実際に作られるコンテナイメージはここから
 FROM alpine:3.12 as runner
 
 COPY --from=builder /src/bin/go-webapp /usr/local/bin
@@ -488,7 +484,7 @@ go-webapp                      multistage        667da54679b2   3 hours ago     
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
 <h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
 <ul>
-<li>1コンテナにつき1プロセス(アプリ) にする</li>
+<li>1コンテナにつき1アプリにする</li>
 <li>Immutable Infrastructureにする</li>
 <li>アプリケーションが動作するために必要なものを把握(ライブラリ，ビルドツール，言語ランタイムなど)</li>
 <li>できるだけイメージや依存関係を最小限にする．</li>
@@ -508,7 +504,7 @@ services:
        - db_data:/var/lib/mysql
      restart: always
      environment:
-       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_ROOT_PASSWORD: wordpress
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
@@ -528,12 +524,13 @@ volumes:
     db_data:
 </code></pre>
 <p>かんたんなチートシート</p>
-<pre><code># 起動
+<pre><code class="language-bash"># 起動
 docker compose up -d
 # 起動状態の確認
 docker compose ps
-# ログ
+# コンテナのログを出力
 docker compose logs
+# コンテナの最新のログを追従して出力する
 docker compose logs -f
 # 停止
 docker compose stop

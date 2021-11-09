@@ -156,7 +156,7 @@ services:
        - db_data:/var/lib/mysql
      restart: always
      environment:
-       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_ROOT_PASSWORD: wordpress
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
@@ -176,12 +176,13 @@ volumes:
     db_data:
 </code></pre>
 <p>かんたんなチートシート</p>
-<pre><code># 起動
+<pre><code class="language-bash"># 起動
 docker compose up -d
 # 起動状態の確認
 docker compose ps
-# ログ
+# コンテナのログを出力
 docker compose logs
+# コンテナの最新のログを追従して出力する
 docker compose logs -f
 # 停止
 docker compose stop
