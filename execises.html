@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>コンテナイメージを作成する - コンテナ勉強会</title>
+        <title>演習問題 - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html" class="active"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> Day 1. コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Day 2. Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html" class="active"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,122 +143,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="webアプリケーションをコンテナ化する"><a class="header" href="#webアプリケーションをコンテナ化する">Webアプリケーションをコンテナ化する</a></h1>
-<p>Goで書いたシンプルなWebアプリケーションをコンテナ化して実行する．
-コンテナイメージの作成には <code>docker image build(docker build)</code> コマンドを使用する．</p>
-<pre><code class="language-go">package main
-
-import (
-  &quot;net/http&quot;
-  &quot;github.com/labstack/echo/v4&quot;
-  &quot;github.com/labstack/echo/v4/middleware&quot;
-)
-
-func main() {
-  e := echo.New()
-
-  e.Use(middleware.Logger())
-  e.Use(middleware.Recover())
-
-  e.GET(&quot;/&quot;, hello)
-
-  e.Logger.Fatal(e.Start(&quot;:1323&quot;))
-}
-
-func hello(c echo.Context) error {
-  return c.String(http.StatusOK, &quot;Hello, World!&quot;)
-}
-</code></pre>
-<p>各行の先頭に書いてあるのはDockerfile特有の命令である．
-それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code>FROM golang:1.17-buster
-
-WORKDIR /src
-
-RUN apt-get update &amp;&amp; \
-    apt-get install -y make
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
-</code></pre>
-<ul>
-<li><code>FROM golang:1.17-buster</code>: ベースとなるコンテナイメージである．Golangが入ったDebian 10上に構築する．</li>
-<li><code>WORKDIR /src</code>:  /srcをカレントワーキングディレクトリに指定． なければディレクトリを作る</li>
-<li><code>COPY go.mod go.mod</code>: ローカルのgo.modをコンテナ内の/src/go.modにコピーする．</li>
-<li><code>RUN go mod download</code> go.modやgo.sumに書いてあるpackageをダウンロードするコマンドを実行する</li>
-<li><code>COPY . /src</code>: カレントディレクトリのすべてを/srcにコピーする</li>
-<li><code>RUN make build</code>: makeでgolangのバイナリをビルドする</li>
-<li><code>ENTRYPOINT [&quot;go-webapp&quot;]</code> :コンテナを実行時にどのコマンドを実行するか定義する</li>
-</ul>
-<pre><code class="language-bash">docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
-</code></pre>
-<h2 id="発展-マルチステージビルド"><a class="header" href="#発展-マルチステージビルド">発展: マルチステージビルド</a></h2>
-<p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
-<p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
-よって，コンテナイメージをダウンロードする時間が短くなり，デプロイ時間を短縮することにもつながる．</p>
-<ol>
-<li>Goコンパイラがあるイメージ内で，アプリケーションをコンパイルする．</li>
-<li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
-</ol>
-<p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code>FROM golang:1.17-buster as builder
-
-WORKDIR /src
-
-RUN apt-get update &amp;&amp; \
-    apt-get install -y make
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-FROM gcr.io/distroless/base-debian10
-
-COPY --from=builder /src/bin/* /
-
-ENTRYPOINT [&quot;/go-webapp&quot;]
-</code></pre>
-<ul>
-<li><code>FROM gcr.io/distroless/base-debian10</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
-<li><code>COPY --from=builder /src/bin/* /</code> : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする</li>
-</ul>
-<pre><code class="language-bash">docker image build -f Dockerfile.multistage -t go-webapp:multistage .
-</code></pre>
-<p>マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．</p>
-<pre><code>$ docker image ls
-REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
-go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
-go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
-</code></pre>
-<p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
-<h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
-<ul>
-<li>1コンテナにつき1アプリにする</li>
-<li>Immutable Infrastructureにする</li>
-<li>アプリケーションが動作するために必要なものを把握(ライブラリ，ビルドツール，言語ランタイムなど)</li>
-<li>できるだけイメージや依存関係を最小限にする．</li>
-</ul>
-<p>他にも気をつけるべきことは多いが今回は割愛する．
-コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．</p>
+                        <h1 id="演習課題"><a class="header" href="#演習課題">演習課題</a></h1>
+<h2 id="演習課題1-jupyter-lab-のコンテナイメージを作る"><a class="header" href="#演習課題1-jupyter-lab-のコンテナイメージを作る">演習課題1. Jupyter Lab のコンテナイメージを作る</a></h2>
+<p>JupyterLab を実行する Dockerfile を作ってください(ベースイメージには python:3.10-buster を使用すること)</p>
+<h2 id="演習課題2-好きなソフトウェアのコンテナイメージを作る"><a class="header" href="#演習課題2-好きなソフトウェアのコンテナイメージを作る">演習課題2: 好きなソフトウェアのコンテナイメージを作る</a></h2>
+<p>自作のアプリケーションや既にあるアプリケーションでも良いので
+コンテナ上で実行できるようにしてください．</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="3-docker-run.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="5-docker-compose.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="5-docker-compose.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -268,11 +168,11 @@ go-webapp                         singlestage   98747e043f01   5 minutes ago   9
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="3-docker-run.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="5-docker-compose.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="5-docker-compose.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>
