@@ -37,18 +37,18 @@ volumes:
 かんたんなチートシート
 ```
 # 起動
-docker-compose up -d
+docker compose up -d
 # 起動状態の確認
-docker-compose ps
+docker compose ps
 # ログ
-docker-compose logs
-docker-compose logs -f
+docker compose logs
+docker compose logs -f
 # 停止
-docker-compose stop
+docker compose stop
 # 削除
-docker-compose rm
+docker compose rm
 # 停止 + 削除
-docker-compose down
+docker compose down
 ```
 
 ## Dockerの活用例
@@ -75,8 +75,4 @@ WindowsやmacOSでDockerをためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
 WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．
 
-## 参考文献
 
-- [1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container
-- [2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/
-- [3] Docker, inc., Dockerfile Best practice, https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
