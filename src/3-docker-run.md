@@ -8,13 +8,13 @@
 
 サンプルファイルなどのダウンロード
 ```
-git clone https://github.com/sai-lab/container-training.git
-cd container-training
+git clone https://github.com/guni1192/container-workshop.git
+cd container-workshop/samples
 ```
 
 フォルダ構成は以下のようになっている
 ```
-container-training/
+samples
 ├── docker
 │   ├── go-webapp
 │   │   ├── Dockerfile

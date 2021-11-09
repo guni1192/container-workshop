@@ -4,51 +4,14 @@ Goで書いたシンプルなWebアプリケーションをコンテナ化する
 サンプルアプリケーションをGoで実装した．
 
 ```go
-package main
-
-import (
-  "net/http"
-  "github.com/labstack/echo/v4"
-  "github.com/labstack/echo/v4/middleware"
-)
-
-func main() {
-  e := echo.New()
-
-  e.Use(middleware.Logger())
-  e.Use(middleware.Recover())
-
-  e.GET("/", hello)
-
-  e.Logger.Fatal(e.Start(":1323"))
-}
-
-func hello(c echo.Context) error {
-  return c.String(http.StatusOK, "Hello, World!")
-}
+{{#include ../samples/docker/go-webapp/main.go}}
 ```
 
 各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．
 
-```Dockerfile
-FROM golang:1.15-alpine3.12
-
-WORKDIR /src
-
-RUN apk add --no-cache make
-
-# Goの外部依存のライブラリが書いてあるファイル
-COPY go.mod go.mod 
-COPY go.sum go.sum
-
-# ライブラリのダウンロード
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-ENTRYPOINT ["/src/bin/go-webapp"]
+```
+{{#include ../samples/docker/go-webapp/Dockerfile.singlestage}}
 ```
 
 - `FROM golang:1.15-alpine`: ベースとなるコンテナイメージである．Golangが入ったAlpine Linuxという軽量Linuxディストリビューションを使う
@@ -75,26 +38,8 @@ CやGoなどのコンパイラ言語でコンパイルされたシステムは�
 
 という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．
 
-```Dockerfile
-FROM golang:1.15-alpine3.12 as builder
-
-WORKDIR /src
-
-RUN apk add --no-cache make
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-## ↓ 実際に作られるコンテナイメージはここから
-FROM alpine:3.12 as runner
-
-COPY --from=builder /src/bin/go-webapp /usr/local/bin
-
-ENTRYPOINT ["go-webapp"]
+```
+{{#include ../samples/docker/go-webapp/Dockerfile.multistage}}
 ```
 
 - `FROM alpine:3.12 as runner`: コンテナを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．
@@ -117,7 +62,7 @@ go-webapp                      multistage        667da54679b2   3 hours ago     
 
 ## コンテナイメージを作るときに気をつけること
 
-- 1コンテナにつき1プロセス(アプリ) にする
+- 1コンテナにつき1アプリにする
 - Immutable Infrastructureにする
 - アプリケーションが動作するために必要なものを把握(ライブラリ，ビルドツール，言語ランタイムなど)
 - できるだけイメージや依存関係を最小限にする．
