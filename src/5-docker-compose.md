@@ -37,18 +37,18 @@ volumes:
 かんたんなチートシート
 ```
 # 起動
-docker-compose up -d
+docker compose up -d
 # 起動状態の確認
-docker-compose ps
+docker compose ps
 # ログ
-docker-compose logs
-docker-compose logs -f
+docker compose logs
+docker compose logs -f
 # 停止
-docker-compose stop
+docker compose stop
 # 削除
-docker-compose rm
+docker compose rm
 # 停止 + 削除
-docker-compose down
+docker compose down
 ```
 
 ## Dockerの活用例
