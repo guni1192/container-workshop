@@ -31,23 +31,39 @@ container-training/
 
 ### 実行環境
 
-```
-Client:
- Version:      17.05.0-ce
- API version:  1.29
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
+- OS: Fedora 35
+- Kernel: Linux x86-64 5.14
 
-Server:
- Version:      17.05.0-ce
- API version:  1.29 (minimum version 1.12)
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
- Experimental: false
+```
+[vagrant@fedora ~]$ docker version
+Client: Docker Engine - Community
+ Version:           20.10.10
+ API version:       1.41
+ Go version:        go1.16.9
+ Git commit:        b485636
+ Built:             Mon Oct 25 07:43:46 2021
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.10
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.16.9
+  Git commit:       e2f740d
+  Built:            Mon Oct 25 07:41:31 2021
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.4.11
+  GitCommit:        5b46e404f6b9f661a205e28d59c982d3634148f8
+ runc:
+  Version:          1.0.2
+  GitCommit:        v1.0.2-0-g52b36a2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
 ```
 
 
