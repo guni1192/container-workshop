@@ -1,7 +1,7 @@
 # Webアプリケーションをコンテナ化する
 
-Goで書いたシンプルなWebアプリケーションをコンテナ化する．
-サンプルアプリケーションをGoで実装した．
+Goで書いたシンプルなWebアプリケーションをコンテナ化して実行する．
+コンテナイメージの作成には `docker image build(docker build)` コマンドを使用する．
 
 ```go
 {{#include ../samples/docker/go-webapp/main.go}}
@@ -14,7 +14,7 @@ Goで書いたシンプルなWebアプリケーションをコンテナ化する
 {{#include ../samples/docker/go-webapp/Dockerfile.singlestage}}
 ```
 
-- `FROM golang:1.15-alpine`: ベースとなるコンテナイメージである．Golangが入ったAlpine Linuxという軽量Linuxディストリビューションを使う
+- `FROM golang:1.17-buster`: ベースとなるコンテナイメージである．Golangが入ったDebian 10上に構築する．
 - `WORKDIR /src`:  /srcをカレントワーキングディレクトリに指定． なければディレクトリを作る
 - `COPY go.mod go.mod`: ローカルのgo.modをコンテナ内の/src/go.modにコピーする．
 - `RUN go mod download` go.modやgo.sumに書いてあるpackageをダウンロードするコマンドを実行する
@@ -22,11 +22,11 @@ Goで書いたシンプルなWebアプリケーションをコンテナ化する
 - `RUN make build`: makeでgolangのバイナリをビルドする
 - `ENTRYPOINT ["go-webapp"]` :コンテナを実行時にどのコマンドを実行するか定義する
 
-```
-docker build -f Dockerfile.singlestage -t $USER/go-webapp:singlestage .
+```bash
+docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
 ```
 
-## マルチステージビルド
+## 発展: マルチステージビルド
 
 CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．
 
@@ -42,20 +42,20 @@ CやGoなどのコンパイラ言語でコンパイルされたシステムは�
 {{#include ../samples/docker/go-webapp/Dockerfile.multistage}}
 ```
 
-- `FROM alpine:3.12 as runner`: コンテナを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．
-- `COPY --from=builder /src/bin/go-webbapp /usr/local/bin` : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする
+- `FROM gcr.io/distroless/base-debian10`: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．
+- `COPY --from=builder /src/bin/* /` : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする
 
-```
-docker build -f Dockerfile.multistage -t $USER/go-webapp:multistage .
+```bash
+docker image build -f Dockerfile.multistage -t go-webapp:multistage .
 ```
 
-マルチステージビルドで作成したコンテナイメージは11.4MBで，数百MBものサイズの削減になった．
+マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．
 
 ```
 $ docker image ls
-REPOSITORY                     TAG               IMAGE ID       CREATED          SIZE
-go-webapp                      singlestage       6823e5b90199   33 seconds ago   395MB
-go-webapp                      multistage        667da54679b2   3 hours ago      11.4MB
+REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
+go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
+go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
 ```
 
 マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる

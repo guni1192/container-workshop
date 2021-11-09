@@ -1,8 +1,9 @@
-FROM golang:1.15-alpine3.12
+FROM golang:1.17-buster
 
 WORKDIR /src
 
-RUN apk add --no-cache make
+RUN apt-get update && \
+    apt-get install -y make
 
 COPY go.mod go.mod
 COPY go.sum go.sum
