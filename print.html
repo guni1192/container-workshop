@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -291,22 +291,39 @@ cd container-training
 └── README.md
 </code></pre>
 <h3 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h3>
-<pre><code>Client:
- Version:      17.05.0-ce
- API version:  1.29
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
+<ul>
+<li>OS: Fedora 35</li>
+<li>Kernel: Linux x86-64 5.14</li>
+</ul>
+<pre><code>[vagrant@fedora ~]$ docker version
+Client: Docker Engine - Community
+ Version:           20.10.10
+ API version:       1.41
+ Go version:        go1.16.9
+ Git commit:        b485636
+ Built:             Mon Oct 25 07:43:46 2021
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
 
-Server:
- Version:      17.05.0-ce
- API version:  1.29 (minimum version 1.12)
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
- Experimental: false
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.10
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.16.9
+  Git commit:       e2f740d
+  Built:            Mon Oct 25 07:41:31 2021
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.4.11
+  GitCommit:        5b46e404f6b9f661a205e28d59c982d3634148f8
+ runc:
+  Version:          1.0.2
+  GitCommit:        v1.0.2-0-g52b36a2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
 </code></pre>
 <h3 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h3>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
@@ -506,18 +523,18 @@ volumes:
 </code></pre>
 <p>かんたんなチートシート</p>
 <pre><code># 起動
-docker-compose up -d
+docker compose up -d
 # 起動状態の確認
-docker-compose ps
+docker compose ps
 # ログ
-docker-compose logs
-docker-compose logs -f
+docker compose logs
+docker compose logs -f
 # 停止
-docker-compose stop
+docker compose stop
 # 削除
-docker-compose rm
+docker compose rm
 # 停止 + 削除
-docker-compose down
+docker compose down
 </code></pre>
 <h2 id="dockerの活用例"><a class="header" href="#dockerの活用例">Dockerの活用例</a></h2>
 <ul>
@@ -538,7 +555,7 @@ AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散
 <p>WindowsやmacOSでDockerをためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
 WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．</p>
-<h2 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h1>
 <ul>
 <li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
 <li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>

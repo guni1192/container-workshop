@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>コンテナを実行(docker run) - コンテナ勉強会</title>
+        <title>コンテナを実行する - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html" class="active"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html" class="active"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -170,22 +170,39 @@ cd container-training
 └── README.md
 </code></pre>
 <h3 id="実行環境"><a class="header" href="#実行環境">実行環境</a></h3>
-<pre><code>Client:
- Version:      17.05.0-ce
- API version:  1.29
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
+<ul>
+<li>OS: Fedora 35</li>
+<li>Kernel: Linux x86-64 5.14</li>
+</ul>
+<pre><code>[vagrant@fedora ~]$ docker version
+Client: Docker Engine - Community
+ Version:           20.10.10
+ API version:       1.41
+ Go version:        go1.16.9
+ Git commit:        b485636
+ Built:             Mon Oct 25 07:43:46 2021
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
 
-Server:
- Version:      17.05.0-ce
- API version:  1.29 (minimum version 1.12)
- Go version:   go1.7.5
- Git commit:   89658be
- Built:        Thu May  4 22:06:06 2017
- OS/Arch:      linux/amd64
- Experimental: false
+Server: Docker Engine - Community
+ Engine:
+  Version:          20.10.10
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.16.9
+  Git commit:       e2f740d
+  Built:            Mon Oct 25 07:41:31 2021
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.4.11
+  GitCommit:        5b46e404f6b9f661a205e28d59c982d3634148f8
+ runc:
+  Version:          1.0.2
+  GitCommit:        v1.0.2-0-g52b36a2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
 </code></pre>
 <h3 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h3>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>

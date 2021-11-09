@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>複数のコンテナを管理(docker compose) - コンテナ勉強会</title>
+        <title>複数のコンテナを管理する - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">4.</strong> コンテナを実行(docker run)</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">5.</strong> コンテナイメージを作成(docker build)</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html" class="active"><strong aria-hidden="true">6.</strong> 複数のコンテナを管理(docker compose)</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html" class="active"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.4.</strong> 参考文献</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -177,18 +177,18 @@ volumes:
 </code></pre>
 <p>かんたんなチートシート</p>
 <pre><code># 起動
-docker-compose up -d
+docker compose up -d
 # 起動状態の確認
-docker-compose ps
+docker compose ps
 # ログ
-docker-compose logs
-docker-compose logs -f
+docker compose logs
+docker compose logs -f
 # 停止
-docker-compose stop
+docker compose stop
 # 削除
-docker-compose rm
+docker compose rm
 # 停止 + 削除
-docker-compose down
+docker compose down
 </code></pre>
 <h2 id="dockerの活用例"><a class="header" href="#dockerの活用例">Dockerの活用例</a></h2>
 <ul>
@@ -209,12 +209,6 @@ AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散
 <p>WindowsやmacOSでDockerをためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
 WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うことを強く推奨する．</p>
-<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
-<ul>
-<li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
-<li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>
-<li>[3] Docker, inc., Dockerfile Best practice, https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</li>
-</ul>
 
                     </main>
 
@@ -224,6 +218,9 @@ WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うこと
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
+                                                    <a rel="next" href="references.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
                         <div style="clear: both"></div>
                     </nav>
@@ -235,6 +232,9 @@ WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うこと
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
+                                    <a rel="next" href="references.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                             </nav>
 
         </div>
