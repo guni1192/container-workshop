@@ -388,8 +388,8 @@ docker run --name jupyterlab --rm -p 8888:8888 \
 <pre><code>docker stop jupyterlab
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="webアプリケーションをコンテナ化する"><a class="header" href="#webアプリケーションをコンテナ化する">Webアプリケーションをコンテナ化する</a></h1>
-<p>Goで書いたシンプルなWebアプリケーションをコンテナ化する．
-サンプルアプリケーションをGoで実装した．</p>
+<p>Goで書いたシンプルなWebアプリケーションをコンテナ化して実行する．
+コンテナイメージの作成には <code>docker image build(docker build)</code> コマンドを使用する．</p>
 <pre><code class="language-go">package main
 
 import (
@@ -415,11 +415,12 @@ func hello(c echo.Context) error {
 </code></pre>
 <p>各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code>FROM golang:1.15-alpine3.12
+<pre><code>FROM golang:1.17-buster
 
 WORKDIR /src
 
-RUN apk add --no-cache make
+RUN apt-get update &amp;&amp; \
+    apt-get install -y make
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -431,7 +432,7 @@ RUN make build
 ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 </code></pre>
 <ul>
-<li><code>FROM golang:1.15-alpine</code>: ベースとなるコンテナイメージである．Golangが入ったAlpine Linuxという軽量Linuxディストリビューションを使う</li>
+<li><code>FROM golang:1.17-buster</code>: ベースとなるコンテナイメージである．Golangが入ったDebian 10上に構築する．</li>
 <li><code>WORKDIR /src</code>:  /srcをカレントワーキングディレクトリに指定． なければディレクトリを作る</li>
 <li><code>COPY go.mod go.mod</code>: ローカルのgo.modをコンテナ内の/src/go.modにコピーする．</li>
 <li><code>RUN go mod download</code> go.modやgo.sumに書いてあるpackageをダウンロードするコマンドを実行する</li>
@@ -439,9 +440,9 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 <li><code>RUN make build</code>: makeでgolangのバイナリをビルドする</li>
 <li><code>ENTRYPOINT [&quot;go-webapp&quot;]</code> :コンテナを実行時にどのコマンドを実行するか定義する</li>
 </ul>
-<pre><code>docker build -f Dockerfile.singlestage -t $USER/go-webapp:singlestage .
+<pre><code class="language-bash">docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
 </code></pre>
-<h2 id="マルチステージビルド"><a class="header" href="#マルチステージビルド">マルチステージビルド</a></h2>
+<h2 id="発展-マルチステージビルド"><a class="header" href="#発展-マルチステージビルド">発展: マルチステージビルド</a></h2>
 <p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
 <p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
 よって，コンテナイメージをダウンロードする時間が短くなり，デプロイ時間を短縮することにもつながる．</p>
@@ -450,11 +451,12 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 <li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
 </ol>
 <p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code>FROM golang:1.15-alpine3.12 as builder
+<pre><code>FROM golang:1.17-buster as builder
 
 WORKDIR /src
 
-RUN apk add --no-cache make
+RUN apt-get update &amp;&amp; \
+    apt-get install -y make
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -463,23 +465,23 @@ RUN go mod download
 COPY . /src
 RUN make build
 
-FROM alpine:3.12 as runner
+FROM gcr.io/distroless/base-debian10
 
-COPY --from=builder /src/bin/go-webapp /usr/local/bin
+COPY --from=builder /src/bin/* /
 
-ENTRYPOINT [&quot;go-webapp&quot;]
+ENTRYPOINT [&quot;/go-webapp&quot;]
 </code></pre>
 <ul>
-<li><code>FROM alpine:3.12 as runner</code>: コンテナを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
-<li><code>COPY --from=builder /src/bin/go-webbapp /usr/local/bin</code> : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする</li>
+<li><code>FROM gcr.io/distroless/base-debian10</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
+<li><code>COPY --from=builder /src/bin/* /</code> : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする</li>
 </ul>
-<pre><code>docker build -f Dockerfile.multistage -t $USER/go-webapp:multistage .
+<pre><code class="language-bash">docker image build -f Dockerfile.multistage -t go-webapp:multistage .
 </code></pre>
-<p>マルチステージビルドで作成したコンテナイメージは11.4MBで，数百MBものサイズの削減になった．</p>
+<p>マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．</p>
 <pre><code>$ docker image ls
-REPOSITORY                     TAG               IMAGE ID       CREATED          SIZE
-go-webapp                      singlestage       6823e5b90199   33 seconds ago   395MB
-go-webapp                      multistage        667da54679b2   3 hours ago      11.4MB
+REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
+go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
+go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
 </code></pre>
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
 <h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
