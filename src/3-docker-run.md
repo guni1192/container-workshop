@@ -1,15 +1,22 @@
 # Dockerでいろんなコンテナを実行する
 
-実際に`docker run` コマンドを使用してコンテナを実行する．
+実際に`docker container run` コマンドを使用してコンテナを実行する．
 
 - Ubuntu
 - Nginx
 - Jupyter
 
 サンプルファイルなどのダウンロード
-```
+```bash
 git clone https://github.com/guni1192/container-workshop.git
-cd container-workshop/samples
+cd container-workshop
+```
+
+演習環境のVMを構築
+```bash
+vagrant up
+vagrant ssh
+cd samples/
 ```
 
 フォルダ構成は以下のようになっている
@@ -70,10 +77,10 @@ Server: Docker Engine - Community
 ## Ubuntuの実行
 
 Ubuntuのイメージを使用したコンテナでbashを起動する
-```
-                   ↓ コンテナイメージ
-$ docker run -it ubuntu:20.04 bash
-                               ↑ 実行するコマンド
+```bash
+                            ↓ コンテナイメージ
+$ docker container run -it ubuntu:20.04 bash
+                                        ↑ コンテナ内で実行するコマンド
 ```
 
 今回はbashのような対話シェルを実行するため，以下のようなオプションが必要になる．
@@ -96,7 +103,7 @@ $ docker run -it ubuntu:20.04 bash
 Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．
 
 ```
-docker run --name nginx -d -p 8080:80 nginx:1.19.9
+docker container run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
 ```
 
@@ -119,7 +126,7 @@ docker run --name nginx -d -p 8080:80 nginx:1.19.9
 
 終わったらコンテナを止める
 ```
-docker stop nginx
+docker container stop nginx
 ```
 
 ## Jupyter Labの実行
@@ -129,7 +136,7 @@ Webブラウザで実行できる．
 
 ```
 cd docker/jupyter
-docker run --name jupyterlab --rm -p 8888:8888 \
+docker container run --name jupyterlab --rm -p 8888:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v "$PWD":/home/jovyan/work \
     jupyter/datascience-notebook
@@ -143,5 +150,5 @@ docker run --name jupyterlab --rm -p 8888:8888 \
 
 アクセスできることを確認できたら止める
 ```
-docker stop jupyterlab
+docker container stop jupyterlab
 ```
