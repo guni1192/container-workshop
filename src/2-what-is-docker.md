@@ -10,7 +10,7 @@
 - Dockerの環境構築
 - Docker Desktopなどの使い方
 
-## 1. Dockerとは
+## Dockerとは
 
 Dockerとはコンテナ型仮想化ソフトウェアである．
 Dockerは，コンテナの起動(Run)，コンテナイメージの作成(Build)，コンテナイメージの公開(Share)などの機能を持つ．
