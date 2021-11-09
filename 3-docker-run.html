@@ -144,15 +144,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h1>
-<p>実際に<code>docker run</code> コマンドを使用してコンテナを実行する．</p>
+<p>実際に<code>docker container run</code> コマンドを使用してコンテナを実行する．</p>
 <ul>
 <li>Ubuntu</li>
 <li>Nginx</li>
 <li>Jupyter</li>
 </ul>
 <p>サンプルファイルなどのダウンロード</p>
-<pre><code>git clone https://github.com/guni1192/container-workshop.git
-cd container-workshop/samples
+<pre><code class="language-bash">git clone https://github.com/guni1192/container-workshop.git
+cd container-workshop
+</code></pre>
+<p>演習環境のVMを構築</p>
+<pre><code class="language-bash">vagrant up
+vagrant ssh
+cd samples/
 </code></pre>
 <p>フォルダ構成は以下のようになっている</p>
 <pre><code>samples
@@ -206,9 +211,9 @@ Server: Docker Engine - Community
 </code></pre>
 <h2 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h2>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
-<pre><code>                   ↓ コンテナイメージ
-$ docker run -it ubuntu:20.04 bash
-                               ↑ 実行するコマンド
+<pre><code class="language-bash">                            ↓ コンテナイメージ
+$ docker container run -it ubuntu:20.04 bash
+                                        ↑ コンテナ内で実行するコマンド
 </code></pre>
 <p>今回はbashのような対話シェルを実行するため，以下のようなオプションが必要になる．</p>
 <pre><code>-i, --interactive    Keep STDIN open even if not attached
@@ -225,7 +230,7 @@ $ docker run -it ubuntu:20.04 bash
 </ol>
 <h2 id="nginxの実行"><a class="header" href="#nginxの実行">Nginxの実行</a></h2>
 <p>Nginx(エンジンエックス)は静的ファイルを高速にサーブできるHTTPサーバプログラム．</p>
-<pre><code>docker run --name nginx -d -p 8080:80 nginx:1.19.9
+<pre><code>docker container run --name nginx -d -p 8080:80 nginx:1.19.9
                                       ↑ コンテナの80番ポートをホストの8080番ポートにフォワード
 </code></pre>
 <p>今回はバックグラウンドでNginxを動かすために<code>-d</code>を使用した．
@@ -242,13 +247,13 @@ $ docker run -it ubuntu:20.04 bash
 <li>もう一度 <code>curl http://localhost:8080</code>でNginxにリクエストを送信し，アクセスログが表示されることを確認する．</li>
 </ol>
 <p>終わったらコンテナを止める</p>
-<pre><code>docker stop nginx
+<pre><code>docker container stop nginx
 </code></pre>
 <h2 id="jupyter-labの実行"><a class="header" href="#jupyter-labの実行">Jupyter Labの実行</a></h2>
 <p>Jupyter LabはJupyter NotebookのIDEのようなもの．
 Webブラウザで実行できる．</p>
 <pre><code>cd docker/jupyter
-docker run --name jupyterlab --rm -p 8888:8888 \
+docker container run --name jupyterlab --rm -p 8888:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v &quot;$PWD&quot;:/home/jovyan/work \
     jupyter/datascience-notebook
@@ -258,7 +263,7 @@ docker run --name jupyterlab --rm -p 8888:8888 \
 -e, --env list      Set environment variables
 </code></pre>
 <p>アクセスできることを確認できたら止める</p>
-<pre><code>docker stop jupyterlab
+<pre><code>docker container stop jupyterlab
 </code></pre>
 
                     </main>
