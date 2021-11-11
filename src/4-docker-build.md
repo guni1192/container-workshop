@@ -26,6 +26,29 @@ Goで書いたシンプルなWebアプリケーションをコンテナ化して
 docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
 ```
 
+## 演習: 作ったコンテナイメージを実行する
+
+`docker container run (docker run)` コマンドを使ってコンテナを実行する．
+
+```bash
+docker container run -d --name go-webapp -p 1323:1323 go-webapp:singlestage
+```
+
+`curl` コマンドでコンテナ上でWebアプリにHTTPリクエストを送る．
+
+```bash
+# コンテナの外から実行
+curl http://localhost:1323
+```
+
+`Hello, World!` が出力されたら成功．
+
+終わったらコンテナを終了させる．
+
+```bash
+docker stop go-webapp
+```
+
 ## 発展: マルチステージビルド
 
 CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．
@@ -42,20 +65,20 @@ CやGoなどのコンパイラ言語でコンパイルされたシステムは�
 {{#include ../samples/docker/go-webapp/Dockerfile.multistage}}
 ```
 
-- `FROM gcr.io/distroless/base-debian10`: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．
+- `FROM gcr.io/distroless/base-debian11`: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．
 - `COPY --from=builder /src/bin/* /` : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする
 
 ```bash
 docker image build -f Dockerfile.multistage -t go-webapp:multistage .
 ```
 
-マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．
+マルチステージビルドで作成したコンテナイメージは25.3MBで，数百MBものサイズの削減になった．
 
 ```
 $ docker image ls
-REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
-go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
-go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
+REPOSITORY                        TAG             IMAGE ID       CREATED          SIZE
+go-webapp                         multistage      61199b8fff2c   7 seconds ago    25.3MB
+go-webapp                         singlestage     2e402f9e54ba   29 seconds ago   1.04GB
 ```
 
 マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる

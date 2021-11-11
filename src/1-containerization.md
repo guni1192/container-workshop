@@ -27,69 +27,6 @@ chrootシステムコールはシステムのルートディレクトリを変�
 2006年頃，Linux 2.6にてnamespace(後述)という機能が実装された．
 この機能を用いて登場したのがLXCやDockerといった現代のコンテナ型仮想化ソフトウェアである．
 
-## Linuxコンテナを構成する機能
-
-Linuxにおけるポピュラーなコンテナは以下の機能によって実装されている．
-
-### Namespace
-
-Linux NamespaceはLinuxカーネルのリソースを分離するための機構．unshareシステムコールやcloneシステムコールでNamespaceを分離することができる．
-
-Namespaceの種類
-- PID Namespace: 
-    Process IDを分離することができる．これにより，ホストのOSのプロセスの状態と関係なくコンテナ内のPIDは1からスタートする． `ps` コマンドなどの結果が変わる．
-- Network Namespace
-    ネットワークインタフェースの情報をホストから分離する．コンテナ内からホストのNICの情報をみることができなくなる．ホストとの疎通もできなくなるため，仮想Ethernetなどの構築が必要
-- UTS Namespace: 
-    UTSを分離する． これによりコンテナにホストOSと異なるホスト名をつけることができる．
-- Mount Namespace:
-    マウントしているファイルを分離することができる．
-- User Namespace:
-    UID, GID, Capabilityを分離する．コンテナ外の一般ユーザをコンテナ内のrootユーザにマッピングすることができるようになる．
-- Time Namespace:
-    コンテナの中のタイムゾーンをホストと異なるものが使用できる
-
-### Cgroups
-CgroupはLinuxカーネルのリソースの使用を制限する機能．プロセス群のCPU, RAM, Disk IO, Network IOなどのハードウェア資源の使用量やプロセスの生成数などを制限することができる．
-
-Linuxにおけるコンテナの実装は非常にシンプルであり，C言語で数百行程度で記述することができる．
-
-### 余談1. Bashで作るコンテナ
-
-```bash
-mkdir rootfs
-docker export $(docker create ubuntu:20.04) | tar -C rootfs -xvf -
-unshare --mount --uts --net --pid --user --fork /bin/bash
-chroot rootfs /bin/bash
-mount -t proc proc /proc
-```
-
-psコマンドでプロセスが隔離されていることを確認しよう
-
-### 余談2. C言語で作るコンテナ
-
-コンテナのミニマム実装の例: [c2](https://github.com/sai-lab/c2)
-
-## コンテナの分類
-
-### アプリケーションコンテナ
-
-DockerやCRI-Oなどで用いられるコンテナはアプリケーションコンテナと呼ばれる．
-アプリケーションコンテナは単一関心事の原則(Single Concern Princile)という考え方を採用しているコンテナである．
-シンプルに表現すると，1つのコンテナ内で実行するアプリケーションを1つに限定するという原則である．
-これにより，コンテナ内のアプリケーションの依存関係をシンプルにし，スケールが容易になるといったものである．
-LAMP(Linux, Apache, MySQL, PHP)でいうと，Apache(+ PHP)とMySQLを別々のコンテナとして利用し，リクエストの増加に応じてApacheのコンテナのみをスケールすることができる．
-
-### システムコンテナ
-
-LXC(LXD), OpenVZはシステムコンテナと呼ばれるコンテナ環境である．
-システムコンテナとは，アプリケーションコンテナと異なり，複数のアプリケーションが動作し，実際のLinux OSと同様に動作するものである．
-systemdなどのinit processが動作し，複数のデーモンプロセスを動かすことが可能だ．
-1つのコンテナのイメージサイズは大きいが，VMなどの構成をそのまま移行することも比較的容易である．
-LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの．
-
-![container-kind](./img/container-kind.png)
-
 ## 参考文献
 
 [1] 川口直也, コンテナ型仮想化概論, ISBN-13 : 978-4877834784
