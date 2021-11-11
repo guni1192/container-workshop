@@ -1,9 +1,11 @@
-FROM golang:1.17-buster as builder
+FROM golang:1.17-bullseye as builder
 
 WORKDIR /src
 
 RUN apt-get update && \
-    apt-get install -y make
+    apt-get install make && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -12,7 +14,7 @@ RUN go mod download
 COPY . /src
 RUN make build
 
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/base-debian11
 
 COPY --from=builder /src/bin/* /
 
