@@ -190,7 +190,7 @@ VMが1つのハードウェアを多重化して複数のハードウェアに�
 </ul>
 <p>コンテナ型仮想化技術はOSカーネルをホストと共有するため，OSカーネルやコンテナ実行環境の脆弱性に気をつける必要がある．</p>
 <p><img src="containerization/../img/container-and-vm.png" alt="" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="コンテナの歴史"><a class="header" href="#コンテナの歴史">コンテナの歴史</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナの歴史"><a class="header" href="#コンテナの歴史">コンテナの歴史</a></h1>
 <p>コンテナの起源は1970年代に登場した UNIX の<code>chroot</code> システムコールに遡る．
 <code>chroot</code> システムコールはシステムのルートディレクトリを変更するシステムコールである．
 これにより簡易的な隔離環境を作ることができる．
@@ -235,7 +235,7 @@ Cgroup コントローラは以下のような種類がある．</p>
 </ul>
 <p><strong>Note: Cgroupにはv1, v2が存在し，それぞれディレクトリの階層が異なる．Linuxカーネルのバージョンや設定に注意</strong></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナの実装"><a class="header" href="#コンテナの実装">コンテナの実装</a></h1>
-<h3 id="実装1-bashで作るコンテナ"><a class="header" href="#実装1-bashで作るコンテナ">実装1. Bashで作るコンテナ</a></h3>
+<h2 id="実装1-bashで作るコンテナ"><a class="header" href="#実装1-bashで作るコンテナ">実装1. Bashで作るコンテナ</a></h2>
 <pre><code class="language-bash">mkdir rootfs
 docker export $(docker create ubuntu:20.04) | tar -C rootfs -xvf -
 unshare --mount --uts --net --pid --user --fork /bin/bash
@@ -243,7 +243,7 @@ chroot rootfs /bin/bash
 mount -t proc proc /proc
 </code></pre>
 <p>psコマンドでプロセスが隔離されていることを確認しよう</p>
-<h3 id="実装2-c言語で作るコンテナ"><a class="header" href="#実装2-c言語で作るコンテナ">実装2. C言語で作るコンテナ</a></h3>
+<h2 id="実装2-c言語で作るコンテナ"><a class="header" href="#実装2-c言語で作るコンテナ">実装2. C言語で作るコンテナ</a></h2>
 <p>コンテナのミニマム実装の例: <a href="https://github.com/sai-lab/c2">c2</a></p>
 <pre><code class="language-c">#define _GNU_SOURCE
 
@@ -375,21 +375,21 @@ int main(void) {
     }
 }
 </code></pre>
-<h3 id="その他の実装例"><a class="header" href="#その他の実装例">その他の実装例</a></h3>
+<h2 id="その他の実装例"><a class="header" href="#その他の実装例">その他の実装例</a></h2>
 <ul>
 <li>jail</li>
 <li>lxc/lxd</li>
 <li>docker</li>
 <li>podman</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="コンテナの分類"><a class="header" href="#コンテナの分類">コンテナの分類</a></h2>
-<h3 id="アプリケーションコンテナ"><a class="header" href="#アプリケーションコンテナ">アプリケーションコンテナ</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナの分類"><a class="header" href="#コンテナの分類">コンテナの分類</a></h1>
+<h2 id="アプリケーションコンテナ"><a class="header" href="#アプリケーションコンテナ">アプリケーションコンテナ</a></h2>
 <p>DockerやCRI-Oなどで用いられるコンテナはアプリケーションコンテナと呼ばれる．
 アプリケーションコンテナは単一関心事の原則(Single Concern Princile)という考え方を採用しているコンテナである．
 シンプルに表現すると，1つのコンテナ内で実行するアプリケーションを1つに限定するという原則である．
 これにより，コンテナ内のアプリケーションの依存関係をシンプルにし，スケールが容易になるといったものである．
 LAMP(Linux, Apache, MySQL, PHP)でいうと，Apache(+ PHP)とMySQLを別々のコンテナとして利用し，リクエストの増加に応じてApacheのコンテナのみをスケールすることができる．</p>
-<h3 id="システムコンテナ"><a class="header" href="#システムコンテナ">システムコンテナ</a></h3>
+<h2 id="システムコンテナ"><a class="header" href="#システムコンテナ">システムコンテナ</a></h2>
 <p>LXC(LXD), OpenVZはシステムコンテナと呼ばれるコンテナ環境である．
 システムコンテナとは，アプリケーションコンテナと異なり，複数のアプリケーションが動作し，実際のLinux OSと同様に動作するものである．
 systemdなどのinit processが動作し，複数のデーモンプロセスを動かすことが可能だ．
