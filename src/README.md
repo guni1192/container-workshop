@@ -1,9 +1,7 @@
 # Container Workshop in Labo
 
-研究室内で行ったコンテナ勉強会の資料です．
-この資料はGitHubで公開しています．
-
-https://github.com/guni1192/container-workshop
+最所研究室内で行ったコンテナ勉強会の資料です．
+この資料は [GitHub](https://github.com/guni1192/container-workshop) で公開しています．
 
 ## 目的
 
@@ -14,13 +12,10 @@ https://github.com/guni1192/container-workshop
 
 ## 対象
 
-- Linuxを使用したことがあり，OSやネットワークの講義レベルの知識がある学生
+- Linuxを使用したことがあり，OSやTCP/IPに関する講義レベルの知識がある学生
 
 ## 概要
 
-Day1 開発者 + システム管理者向けのコンテナの話
 1. コンテナ型仮想化概論
 2. Docker入門
-
-Day2 システム管理者向けのコンテナの話
-1. Kubernetes入門: **TBD**
+3. Container Hacks
