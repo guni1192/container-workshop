@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html" class="active"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html" class="active"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -171,12 +171,14 @@ func hello(c echo.Context) error {
 </code></pre>
 <p>各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code>FROM golang:1.17-buster
+<pre><code>FROM golang:1.17-bullseye
 
 WORKDIR /src
 
 RUN apt-get update &amp;&amp; \
-    apt-get install -y make
+    apt-get install make &amp;&amp; \
+    apt-get clean &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -198,6 +200,18 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 </ul>
 <pre><code class="language-bash">docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
 </code></pre>
+<h2 id="演習-作ったコンテナイメージを実行する"><a class="header" href="#演習-作ったコンテナイメージを実行する">演習: 作ったコンテナイメージを実行する</a></h2>
+<p><code>docker container run (docker run)</code> コマンドを使ってコンテナを実行する．</p>
+<pre><code class="language-bash">docker container run -d --name go-webapp -p 1323:1323 go-webapp:singlestage
+</code></pre>
+<p><code>curl</code> コマンドでコンテナ上でWebアプリにHTTPリクエストを送る．</p>
+<pre><code class="language-bash"># コンテナの外から実行
+curl http://localhost:1323
+</code></pre>
+<p><code>Hello, World!</code> が出力されたら成功．</p>
+<p>終わったらコンテナを終了させる．</p>
+<pre><code class="language-bash">docker stop go-webapp
+</code></pre>
 <h2 id="発展-マルチステージビルド"><a class="header" href="#発展-マルチステージビルド">発展: マルチステージビルド</a></h2>
 <p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
 <p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
@@ -207,12 +221,14 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 <li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
 </ol>
 <p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code>FROM golang:1.17-buster as builder
+<pre><code>FROM golang:1.17-bullseye as builder
 
 WORKDIR /src
 
 RUN apt-get update &amp;&amp; \
-    apt-get install -y make
+    apt-get install make &amp;&amp; \
+    apt-get clean &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -221,23 +237,23 @@ RUN go mod download
 COPY . /src
 RUN make build
 
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/base-debian11
 
 COPY --from=builder /src/bin/* /
 
 ENTRYPOINT [&quot;/go-webapp&quot;]
 </code></pre>
 <ul>
-<li><code>FROM gcr.io/distroless/base-debian10</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
+<li><code>FROM gcr.io/distroless/base-debian11</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
 <li><code>COPY --from=builder /src/bin/* /</code> : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする</li>
 </ul>
 <pre><code class="language-bash">docker image build -f Dockerfile.multistage -t go-webapp:multistage .
 </code></pre>
-<p>マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．</p>
+<p>マルチステージビルドで作成したコンテナイメージは25.3MBで，数百MBものサイズの削減になった．</p>
 <pre><code>$ docker image ls
-REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
-go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
-go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
+REPOSITORY                        TAG             IMAGE ID       CREATED          SIZE
+go-webapp                         multistage      61199b8fff2c   7 seconds ago    25.3MB
+go-webapp                         singlestage     2e402f9e54ba   29 seconds ago   1.04GB
 </code></pre>
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
 <h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>

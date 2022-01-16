@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="1-containerization.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">4.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -144,74 +144,98 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="container-workshop-in-labo"><a class="header" href="#container-workshop-in-labo">Container Workshop in Labo</a></h1>
-<p>研究室内で行ったコンテナ勉強会の資料です．
-この資料はGitHubで公開しています．</p>
-<p>https://github.com/guni1192/container-workshop</p>
+                        <h1 id="コンテナ勉強会"><a class="header" href="#コンテナ勉強会">コンテナ勉強会</a></h1>
+<p>最所研究室内で行ったコンテナ勉強会の資料です．
+この資料は <a href="https://github.com/guni1192/container-workshop">GitHub</a> で公開しています．</p>
 <h2 id="目的"><a class="header" href="#目的">目的</a></h2>
 <ul>
 <li>コンテナ(Container, Lightweight Virtualization)の理論を学ぶ</li>
 <li>コンテナとVMの違いを知り, ワークロードによって使い分けられるようになる</li>
 <li>Dockerの使用法を学び，今後アプリケーションの開発の効率を上げる</li>
-<li>Kubernetesなどの機能を学び，コンテナを運用するということを体験する</li>
 </ul>
 <h2 id="対象"><a class="header" href="#対象">対象</a></h2>
+<p>以下のような学生を対象とする</p>
 <ul>
-<li>Linuxを使用したことがあり，OSやネットワークの講義レベルの知識がある学生</li>
+<li>Linuxを使用したことがある</li>
+<li>OSやTCP/IPに関する講義レベルの知識がある</li>
 </ul>
 <h2 id="概要"><a class="header" href="#概要">概要</a></h2>
-<p>Day1 開発者 + システム管理者向けのコンテナの話</p>
 <ol>
 <li>コンテナ型仮想化概論</li>
 <li>Docker入門</li>
-</ol>
-<p>Day2 システム管理者向けのコンテナの話</p>
-<ol>
-<li>Kubernetes入門: <strong>TBD</strong></li>
+<li>Container Hacks</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナ勉強会-概論編"><a class="header" href="#コンテナ勉強会-概論編">コンテナ勉強会 概論編</a></h1>
+<h2 id="仮想マシン"><a class="header" href="#仮想マシン">仮想マシン</a></h2>
+<p>仮想マシン(VM)はハイパーバイザによって提供される仮想的なハードウェア上で複数の OS を同時に実行できる技術である．
+1つの物理マシン上に複数のVMを集約することで計算機資源を柔軟に管理することが可能である．
+Linux では KVM (Kernel-based Virtual Machine) などを利用して仮想マシンを構築することができる．</p>
 <h2 id="コンテナ型仮想化"><a class="header" href="#コンテナ型仮想化">コンテナ型仮想化</a></h2>
-<p>コンテナ型仮想化とは，軽量な仮想化方式の1つである．
-VMが1つのハードウェアを多重化して複数のハードウェアに見せかけたりするのと比べ，コンテナはOSを仮想化し，あたかも異なる複数のOSのようなものが実行されているように見える機構である．コンテナ内ではOSの起動のようなものは行わず，カーネルなどはホストOSのものを用いるため，VMと比べると起動は高速である．</p>
-<p><strong>注意</strong>: コンテナ型仮想化では，ホストのOSカーネルを使ってコンテナを作成する．そのため，ホストOSと異なるOSのコンテナを作成することはできない．LinuxではLinux, WindowsではWindowsのコンテナを作成することしかできない．</p>
+<p>コンテナ型仮想化とは，アプリケーションの実行環境を作成する仮想化技術の1つである．
+VM と異なる点は仮想環境内に OS カーネルが存在しない点である．
+これにより仮想環境の実行に OS の起動が必要ないため，高速な起動を実現できる．
+VMが1つのハードウェアを多重化して複数のハードウェアに見せかけたりするのと比べ，
+コンテナはOSを仮想化し，あたかも異なる複数のOSのようなものが実行されているように見える．
+コンテナはコンテナを提供するホストOSカーネルによって管理される．
+ホストOS側からはコンテナは単なるプロセスとして見える．
+しかしコンテナ内からは，ホストから様々なリソースを隔離されている．</p>
+<p><strong>注意</strong>: コンテナ型仮想化では，ホストのOSカーネルを使ってコンテナを作成する．そのため，ホストOSと異なるOSのコンテナを作成することはできない．LinuxではLinux, WindowsではWindowsのコンテナのみ作成できる．</p>
 <p>コンテナは様々な用途で利用され，Webサービス等だけではなく組み込み機器，Machine Learningなどでも利用されることが増えてきた．
 誤解を恐れないでいうと，コンテナが向いていないワークロードをベアメタルかVMを用いて運用するという方向になりつつある．</p>
 <p>コンテナが向いていない要件</p>
 <ul>
-<li>カーネルモジュールなどが大きく影響するシステム</li>
+<li>カーネルモジュールなどに大きく影響するシステム</li>
+<li>パブリッククラウドなどにおける不特定多数が利用するマルチテナンシーな環境</li>
 <li>レスポンスタイムがシビアなシステム(仮想NICなどを経由することが多くなるため)</li>
-<li>パブリッククラウドなどにおけるマルチテナンシー(複数人が共有する環境)</li>
 </ul>
-<p>コンテナはリソースの制限や分離(isolation)に関して言えば，ハードウェアレベルで制御することができないので，VMと比べ弱い．そのためセキュリティやパフォーマンスなどの文脈でパブリッククラウドなどのサービスで利用する際はいくつか注意する必要がある．</p>
-<h3 id="コンテナの歴史"><a class="header" href="#コンテナの歴史">コンテナの歴史</a></h3>
-<p>コンテナの起源は1970年代に登場したUNIXのchrootシステムコールに遡る[1]．
-chrootシステムコールはシステムのルートディレクトリを変更するシステムコールである．これにより簡易的な隔離環境を作ることができ，HTTP Serverなどで用いられ，ディレクトリトラバーサルなどの対策に使われた．</p>
-<p>2000年にはFreeBSD jail が生まれ，chroot以外にも様々な隔離機能が搭載され，この跡に生まれてくるコンテナ型仮想化に踏襲された．</p>
-<p>2006年頃，Linux 2.6にてnamespace(後述)という機能が実装された．
-この機能を用いて登場したのがLXCやDockerといった現代のコンテナ型仮想化ソフトウェアである．</p>
-<h2 id="linuxコンテナを構成する機能"><a class="header" href="#linuxコンテナを構成する機能">Linuxコンテナを構成する機能</a></h2>
+<p>コンテナ型仮想化技術はOSカーネルをホストと共有するため，OSカーネルやコンテナ実行環境の脆弱性に気をつける必要がある．</p>
+<p><img src="containerization/../img/container-and-vm.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="コンテナの歴史"><a class="header" href="#コンテナの歴史">コンテナの歴史</a></h3>
+<p>コンテナの起源は1970年代に登場した UNIX の<code>chroot</code> システムコールに遡る．
+<code>chroot</code> システムコールはシステムのルートディレクトリを変更するシステムコールである．
+これにより簡易的な隔離環境を作ることができる．
+HTTP Serverなどで用いられ，ディレクトリトラバーサルなどの対策に使われた．</p>
+<p>2000年には <code>FreeBSD jail</code> が生まれ，chroot以外にも様々な隔離機能が搭載され，この後に生まれてくるコンテナ型仮想化に踏襲された．</p>
+<p>2006年頃，Linux 2.6 にて <code>namespaces</code> (後述) という機能が実装された．
+この機能を用いて登場したのが <code>LXC</code> や <code>Docker</code> といった現代のコンテナ型仮想化ソフトウェアである．</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linuxコンテナを構成する機能"><a class="header" href="#linuxコンテナを構成する機能">Linuxコンテナを構成する機能</a></h1>
 <p>Linuxにおけるポピュラーなコンテナは以下の機能によって実装されている．</p>
-<h3 id="namespace"><a class="header" href="#namespace">Namespace</a></h3>
-<p>Linux NamespaceはLinuxカーネルのリソースを分離するための機構．unshareシステムコールやcloneシステムコールでNamespaceを分離することができる．</p>
+<h2 id="namespace名前空間"><a class="header" href="#namespace名前空間">Namespace(名前空間)</a></h2>
+<p><code>namespaces</code>(7) はLinuxカーネルのリソースを分離するための機構である．
+<code>unshare</code>, <code>clone</code>, <code>clone3</code>, <code>setns</code> などのシステムコールで <code>namespace</code> を分離することができる．</p>
 <p>Namespaceの種類</p>
 <ul>
-<li>PID Namespace: 
+<li><code>PID Namespace</code>: 
 Process IDを分離することができる．これにより，ホストのOSのプロセスの状態と関係なくコンテナ内のPIDは1からスタートする． <code>ps</code> コマンドなどの結果が変わる．</li>
-<li>Network Namespace
+<li><code>Network Namespace</code>:
 ネットワークインタフェースの情報をホストから分離する．コンテナ内からホストのNICの情報をみることができなくなる．ホストとの疎通もできなくなるため，仮想Ethernetなどの構築が必要</li>
-<li>UTS Namespace: 
+<li><code>UTS Namespace</code>:
 UTSを分離する． これによりコンテナにホストOSと異なるホスト名をつけることができる．</li>
-<li>Mount Namespace:
+<li><code>Mount Namespace</code>:
 マウントしているファイルを分離することができる．</li>
-<li>User Namespace:
-UID, GID, Capabilityを分離する．コンテナ外の一般ユーザをコンテナ内のrootユーザにマッピングすることができるようになる．</li>
-<li>Time Namespace:
+<li><code>User Namespace</code>:
+UID, GID, Capability を分離する．コンテナ外の一般ユーザをコンテナ内の root ユーザにマッピングすることができるようになる．</li>
+<li><code>Cgroup Namespace</code>:
+cgroups(7) の root ディレクトリを分離する．</li>
+<li><code>Time Namespace</code>:
 コンテナの中のタイムゾーンをホストと異なるものが使用できる</li>
 </ul>
-<h3 id="cgroups"><a class="header" href="#cgroups">Cgroups</a></h3>
-<p>CgroupはLinuxカーネルのリソースの使用を制限する機能．プロセス群のCPU, RAM, Disk IO, Network IOなどのハードウェア資源の使用量やプロセスの生成数などを制限することができる．</p>
-<p>Linuxにおけるコンテナの実装は非常にシンプルであり，C言語で数百行程度で記述することができる．</p>
-<h3 id="余談1-bashで作るコンテナ"><a class="header" href="#余談1-bashで作るコンテナ">余談1. Bashで作るコンテナ</a></h3>
+<h2 id="cgroups-control-groups"><a class="header" href="#cgroups-control-groups">Cgroups (Control groups)</a></h2>
+<p>CgroupはLinuxカーネルのリソースの使用を制限する機能である．
+プロセス群のCPU, RAM, Disk IO, Network IOなどのハードウェア資源の使用量やプロセスの生成数などを制限することができる．
+それらを管理するシステムをCgroupコントローラと呼ぶ．
+Cgroup コントローラは以下のような種類がある．</p>
+<ul>
+<li><code>CPU</code></li>
+<li><code>Memory</code></li>
+<li><code>IO</code></li>
+<li><code>Device</code></li>
+<li><code>RDMA</code></li>
+<li><code>Misc</code></li>
+</ul>
+<p><strong>Note: Cgroupにはv1, v2が存在し，それぞれディレクトリの階層が異なる．Linuxカーネルのバージョンや設定に注意</strong></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナの実装"><a class="header" href="#コンテナの実装">コンテナの実装</a></h1>
+<h3 id="実装1-bashで作るコンテナ"><a class="header" href="#実装1-bashで作るコンテナ">実装1. Bashで作るコンテナ</a></h3>
 <pre><code class="language-bash">mkdir rootfs
 docker export $(docker create ubuntu:20.04) | tar -C rootfs -xvf -
 unshare --mount --uts --net --pid --user --fork /bin/bash
@@ -219,9 +243,146 @@ chroot rootfs /bin/bash
 mount -t proc proc /proc
 </code></pre>
 <p>psコマンドでプロセスが隔離されていることを確認しよう</p>
-<h3 id="余談2-c言語で作るコンテナ"><a class="header" href="#余談2-c言語で作るコンテナ">余談2. C言語で作るコンテナ</a></h3>
+<h3 id="実装2-c言語で作るコンテナ"><a class="header" href="#実装2-c言語で作るコンテナ">実装2. C言語で作るコンテナ</a></h3>
 <p>コンテナのミニマム実装の例: <a href="https://github.com/sai-lab/c2">c2</a></p>
-<h2 id="コンテナの分類"><a class="header" href="#コンテナの分類">コンテナの分類</a></h2>
+<pre><code class="language-c">#define _GNU_SOURCE
+
+#include &lt;error.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sched.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/mount.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;unistd.h&gt;
+
+// new_uidmap -- HostのUIDをコンテナのUID 0(root user)に割り当てる
+void new_uidmap(uid_t uid) {
+    int fd = open(&quot;/proc/self/uid_map&quot;, O_WRONLY);
+    if (fd &lt; 0) {
+        perror(&quot;open /proc/self/uid_map&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    char uid_map[255];
+    sprintf(uid_map, &quot;0 %d 1&quot;, (int)uid);
+
+    int ret = write(fd, uid_map, sizeof(uid_map));
+    if (ret != sizeof(uid_map)) {
+        perror(&quot;write /proc/self/uid_map&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    close(fd);
+}
+
+// new_gidmap -- HostのGIDをコンテナのGID 0(root group)に割り当てる
+void new_gidmap(gid_t gid) {
+    int fd = open(&quot;/proc/self/setgroups&quot;, O_WRONLY);
+    if (fd &lt; 0) {
+        perror(&quot;open /proc/self/setgroups&quot;);
+        exit(EXIT_FAILURE);
+    }
+    int ret = write(fd, &quot;deny&quot;, sizeof(&quot;deny&quot;));
+    if (ret != sizeof(&quot;deny&quot;)) {
+        perror(&quot;write /proc/self/setgroups&quot;);
+        exit(EXIT_FAILURE);
+    }
+    close(fd);
+
+    fd = open(&quot;/proc/self/gid_map&quot;, O_WRONLY);
+    if (fd &lt; 0) {
+        perror(&quot;open /proc/self/gid_map&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    char gid_map[255];
+    sprintf(gid_map, &quot;0 %d 1&quot;, (int)gid);
+
+    ret = write(fd, gid_map, sizeof(gid_map));
+    if (ret != sizeof(gid_map)) {
+        perror(&quot;write /proc/self/gid_map&quot;);
+        exit(EXIT_FAILURE);
+    }
+    close(fd);
+}
+
+int main(void) {
+    const uid_t host_uid = getuid();
+    const gid_t host_gid = getgid();
+
+    // PID, UTS, Network, IPC, User, Mountを分離する
+    const int clone_flags = CLONE_NEWPID | CLONE_NEWUTS | CLONE_NEWNET |
+                            CLONE_NEWIPC | CLONE_NEWUSER | CLONE_NEWNS;
+
+    // Hostと別のLinux Namespaceを作成する
+    int err = unshare(clone_flags);
+    if (err &lt; 0) {
+        perror(&quot;unshare&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    // HostのUIDをコンテナのUID 0に割り当てる
+    new_uidmap(host_uid);
+    // HostのGIDをコンテナのGID 0に割り当てる
+    new_gidmap(host_gid);
+
+    // 子プロセスの作成
+    const pid_t pid = fork();
+
+    if (pid &lt; 0) {
+        perror(&quot;fork&quot;);
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Child Process
+        int ret = chroot(&quot;rootfs&quot;);
+        if (ret &lt; 0) {
+            perror(&quot;chroot&quot;);
+            exit(EXIT_FAILURE);
+        }
+        chdir(&quot;/&quot;);
+
+        ret = mount(&quot;proc&quot;, &quot;/proc&quot;, &quot;proc&quot;, 0, NULL);
+        if (ret &lt; 0) {
+            perror(&quot;mount procfs&quot;);
+            exit(EXIT_FAILURE);
+        }
+
+        char *const child_argv[2] = {&quot;/bin/bash&quot;, NULL};
+        char *const env[] = {};
+        execve(child_argv[0], child_argv, env);
+        perror(&quot;execve&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    // Parent Process
+    int status;
+
+    const pid_t ret = waitpid(pid, &amp;status, 0);
+
+    if (ret &lt; 0) {
+        perror(&quot;waitpid&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    // プロセスが終了している場合
+    if (WIFEXITED(status)) {
+        printf(&quot;child exit code: %d\n&quot;, WEXITSTATUS(status));
+    } else {
+        printf(&quot;child status: %04d\n&quot;, status);
+    }
+}
+</code></pre>
+<h3 id="その他の実装例"><a class="header" href="#その他の実装例">その他の実装例</a></h3>
+<ul>
+<li>jail</li>
+<li>lxc/lxd</li>
+<li>docker</li>
+<li>podman</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="コンテナの分類"><a class="header" href="#コンテナの分類">コンテナの分類</a></h2>
 <h3 id="アプリケーションコンテナ"><a class="header" href="#アプリケーションコンテナ">アプリケーションコンテナ</a></h3>
 <p>DockerやCRI-Oなどで用いられるコンテナはアプリケーションコンテナと呼ばれる．
 アプリケーションコンテナは単一関心事の原則(Single Concern Princile)という考え方を採用しているコンテナである．
@@ -234,9 +395,13 @@ LAMP(Linux, Apache, MySQL, PHP)でいうと，Apache(+ PHP)とMySQLを別々の�
 systemdなどのinit processが動作し，複数のデーモンプロセスを動かすことが可能だ．
 1つのコンテナのイメージサイズは大きいが，VMなどの構成をそのまま移行することも比較的容易である．
 LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの．</p>
-<p><img src="./img/container-kind.png" alt="container-kind" /></p>
-<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
-<p>[1] 川口直也, コンテナ型仮想化概論, ISBN-13 : 978-4877834784</p>
+<p><img src="containerization/../img/container-kind.png" alt="container-kind" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="演習問題"><a class="header" href="#演習問題">演習問題</a></h1>
+<ol>
+<li>コンテナ型仮想化のメリット・デメリットを述べなさい</li>
+<li>コンテナとVMの違いについて答えなさい</li>
+<li>システムコンテナとアプリケーションコンテナの違いについて述べなさい</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="docker-入門"><a class="header" href="#docker-入門">Docker 入門</a></h1>
 <h2 id="agenda"><a class="header" href="#agenda">Agenda</a></h2>
 <p>話すこと</p>
@@ -420,12 +585,14 @@ func hello(c echo.Context) error {
 </code></pre>
 <p>各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code>FROM golang:1.17-buster
+<pre><code>FROM golang:1.17-bullseye
 
 WORKDIR /src
 
 RUN apt-get update &amp;&amp; \
-    apt-get install -y make
+    apt-get install make &amp;&amp; \
+    apt-get clean &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -447,6 +614,18 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 </ul>
 <pre><code class="language-bash">docker image build -f Dockerfile.singlestage -t go-webapp:singlestage .
 </code></pre>
+<h2 id="演習-作ったコンテナイメージを実行する"><a class="header" href="#演習-作ったコンテナイメージを実行する">演習: 作ったコンテナイメージを実行する</a></h2>
+<p><code>docker container run (docker run)</code> コマンドを使ってコンテナを実行する．</p>
+<pre><code class="language-bash">docker container run -d --name go-webapp -p 1323:1323 go-webapp:singlestage
+</code></pre>
+<p><code>curl</code> コマンドでコンテナ上でWebアプリにHTTPリクエストを送る．</p>
+<pre><code class="language-bash"># コンテナの外から実行
+curl http://localhost:1323
+</code></pre>
+<p><code>Hello, World!</code> が出力されたら成功．</p>
+<p>終わったらコンテナを終了させる．</p>
+<pre><code class="language-bash">docker stop go-webapp
+</code></pre>
 <h2 id="発展-マルチステージビルド"><a class="header" href="#発展-マルチステージビルド">発展: マルチステージビルド</a></h2>
 <p>CやGoなどのコンパイラ言語でコンパイルされたシステムは，コンパイルした実行バイナリ(+ 動的リンクライブラリ) さえあれば，コンパイラはコンテナイメージには必要がない．</p>
 <p>つまり，最終的にコンテナイメージにはバイナリ(+ シェル, ツール)があれば問題ない．コンテナイメージを作る過程を以下のような複数のコンテナイメージを跨いだ多段階形式(マルチステージビルド)にすることで，コンテナイメージの削減に繋がる．
@@ -456,12 +635,14 @@ ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
 <li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
 </ol>
 <p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code>FROM golang:1.17-buster as builder
+<pre><code>FROM golang:1.17-bullseye as builder
 
 WORKDIR /src
 
 RUN apt-get update &amp;&amp; \
-    apt-get install -y make
+    apt-get install make &amp;&amp; \
+    apt-get clean &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
 
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -470,23 +651,23 @@ RUN go mod download
 COPY . /src
 RUN make build
 
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/base-debian11
 
 COPY --from=builder /src/bin/* /
 
 ENTRYPOINT [&quot;/go-webapp&quot;]
 </code></pre>
 <ul>
-<li><code>FROM gcr.io/distroless/base-debian10</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
+<li><code>FROM gcr.io/distroless/base-debian11</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
 <li><code>COPY --from=builder /src/bin/* /</code> : Go言語のコンパイルに使ったコンテナから，軽量コンテナイメージにバイナリをコピーする</li>
 </ul>
 <pre><code class="language-bash">docker image build -f Dockerfile.multistage -t go-webapp:multistage .
 </code></pre>
-<p>マルチステージビルドで作成したコンテナイメージは24.3MBで，数百MBものサイズの削減になった．</p>
+<p>マルチステージビルドで作成したコンテナイメージは25.3MBで，数百MBものサイズの削減になった．</p>
 <pre><code>$ docker image ls
-REPOSITORY                        TAG           IMAGE ID       CREATED         SIZE
-go-webapp                         multistage    df68c5905756   3 minutes ago   24.3MB
-go-webapp                         singlestage   98747e043f01   5 minutes ago   999MB
+REPOSITORY                        TAG             IMAGE ID       CREATED          SIZE
+go-webapp                         multistage      61199b8fff2c   7 seconds ago    25.3MB
+go-webapp                         singlestage     2e402f9e54ba   29 seconds ago   1.04GB
 </code></pre>
 <p>マルチステージビルドはコンテナイメージを削減できるだけでなく，ステージごとに並列で動作可能なので，ビルド時間の短縮にもつながる</p>
 <h2 id="コンテナイメージを作るときに気をつけること"><a class="header" href="#コンテナイメージを作るときに気をつけること">コンテナイメージを作るときに気をつけること</a></h2>
@@ -552,7 +733,7 @@ docker compose down
 <h2 id="演習課題2-好きなソフトウェアのコンテナイメージを作る"><a class="header" href="#演習課題2-好きなソフトウェアのコンテナイメージを作る">演習課題2: 好きなソフトウェアのコンテナイメージを作る</a></h2>
 <p>自作のアプリケーションや既にあるアプリケーションでも良いので
 コンテナ上で実行できるようにしてください．</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献-1"><a class="header" href="#参考文献-1">参考文献</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h1>
 <ul>
 <li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
 <li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>
