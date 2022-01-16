@@ -15,6 +15,11 @@ psコマンドでプロセスが隔離されていることを確認しよう
 
 コンテナのミニマム実装の例: [c2](https://github.com/sai-lab/c2)
 
+```c
+{{#include ../../samples/c2/src/main.c}}
+```
+
+
 ### その他の実装例
 
 - jail
