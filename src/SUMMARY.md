@@ -13,4 +13,5 @@
     - [複数のコンテナを管理する](./5-docker-compose.md)
     - [演習問題](./execises.md)
     - [参考文献](./references.md)
+- [Container Hacks (TBD)](./container-hacks/introduction.md)
 - [おわりに](./conclusion.md)
