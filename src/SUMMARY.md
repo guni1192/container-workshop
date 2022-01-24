@@ -12,4 +12,5 @@
     - [コンテナイメージを作成する](./docker/build.md)
     - [複数のコンテナを管理する](./docker/compose.md)
     - [演習問題](./docker/execises.md)
+- [Container Hacks (TBD)](./container-hacks/introduction.md)
 - [おわりに](./conclusion.md)
