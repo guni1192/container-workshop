@@ -147,7 +147,33 @@
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
-<pre><code class="language-yaml">{{#include ../samples/docker/wordpress/docker-compose.yaml}}
+<pre><code class="language-yaml">version: '3'
+
+services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: wordpress
+       MYSQL_DATABASE: wordpress
+       MYSQL_USER: wordpress
+       MYSQL_PASSWORD: wordpress
+
+   wordpress:
+     depends_on:
+       - db
+     image: wordpress:latest
+     ports:
+       - &quot;8000:80&quot;
+     restart: always
+     environment:
+       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_USER: wordpress
+       WORDPRESS_DB_PASSWORD: wordpress
+volumes:
+    db_data:
 </code></pre>
 <p>かんたんなチートシート</p>
 <pre><code class="language-bash"># 起動
