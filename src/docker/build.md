@@ -4,14 +4,14 @@ Goで書いたシンプルなWebアプリケーションをコンテナ化して
 コンテナイメージの作成には `docker image build(docker build)` コマンドを使用する．
 
 ```go
-{{#include ../samples/docker/go-webapp/main.go}}
+{{#include ../../samples/docker/go-webapp/main.go}}
 ```
 
 各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．
 
 ```
-{{#include ../samples/docker/go-webapp/Dockerfile.singlestage}}
+{{#include ../../samples/docker/go-webapp/Dockerfile.singlestage}}
 ```
 
 - `FROM golang:1.17-buster`: ベースとなるコンテナイメージである．Golangが入ったDebian 10上に構築する．
@@ -62,7 +62,7 @@ CやGoなどのコンパイラ言語でコンパイルされたシステムは�
 という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．
 
 ```
-{{#include ../samples/docker/go-webapp/Dockerfile.multistage}}
+{{#include ../../samples/docker/go-webapp/Dockerfile.multistage}}
 ```
 
 - `FROM gcr.io/distroless/base-debian11`: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．

@@ -6,7 +6,7 @@ Webアプリケーションを例に取ると，フロントエンド，バッ�
 docker-compose.yamlの例
 
 ```yaml
-{{#include ../samples/docker/wordpress/docker-compose.yaml}}
+{{#include ../../samples/docker/wordpress/docker-compose.yaml}}
 ```
 
 かんたんなチートシート
