@@ -26,5 +26,3 @@ docker compose rm
 # 停止 + 削除
 docker compose down
 ```
-
-
