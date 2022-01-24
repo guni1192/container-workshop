@@ -1,6 +1,7 @@
 # Dockerでいろんなコンテナを実行する
 
 実際に`docker container run` コマンドを使用してコンテナを実行する．
+今回実行するコンテナイメージはすべて [DockerHub](https://hub.docker.com/) のものを用いる．
 
 - Ubuntu
 - Nginx
@@ -79,7 +80,7 @@ Server: Docker Engine - Community
 Ubuntuのイメージを使用したコンテナでbashを起動する
 ```bash
                             ↓ コンテナイメージ
-$ docker container run -it ubuntu:20.04 bash
+docker container run -it ubuntu:20.04 bash
                                         ↑ コンテナ内で実行するコマンド
 ```
 
