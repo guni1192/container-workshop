@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="2-what-is-docker.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-docker-run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="4-docker-build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="5-docker-compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li><li class="chapter-item expanded "><a href="references.html"><strong aria-hidden="true">3.5.</strong> 参考文献</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -419,24 +419,26 @@ LAMP(Linux, Apache, MySQL, PHP)を1つのコンテナで動かすようなもの
 Dockerは，コンテナの起動(Run)，コンテナイメージの作成(Build)，コンテナイメージの公開(Share)などの機能を持つ．
 現在最も普及しているコンテナ型仮想化ソフトウェアであり，Amazon Web Service(AWS)のElastic Container Service(ECS)のようなコンテナプラットフォームや，開発者の開発環境など広く使われている．
 Dockerはコンテナの中でもアプリケーションコンテナを扱う．
-アプリケーションコンテナのことをDocker, Inc. は「A standardized unit of software (ソフトウェアの標準化された単位)」だと表現している[1]．
-これは，コンテナとはコードと依存関係をパッケージ化したスタンドアロンなコンピューティング環境であり，高い可搬性(Portability)を持つということを指す．
+アプリケーションコンテナのことをDocker, Inc. は「A standardized unit of software (ソフトウェアの標準化された単位)」だと表現している．
+https://www.docker.com/resources/what-container</p>
+<p>これは，コンテナとはコードと依存関係をパッケージ化したスタンドアロンなコンピューティング環境であり，高い可搬性(Portability)を持つということを指す．
 要はDockerが入っているLinuxディストリビューションであればCentOSでもUbuntuでも同じコンテナイメージを用いてシステムを構築することができるというものである．</p>
 <h3 id="dockerのアーキテクチャ"><a class="header" href="#dockerのアーキテクチャ">Dockerのアーキテクチャ</a></h3>
-<p><img src="./img/docker-architecture.png" alt="docker-architecture" /></p>
+<p><img src="docker/../img/docker-architecture.png" alt="docker-architecture" /></p>
 <p>Dockerは大きく分けて3つの要素から構成される．</p>
 <ul>
 <li><code>docker</code> コマンド: Dockerの操作を行うためのCLI</li>
 <li>Dockerd: Dockerの操作を行うためのAPIを提供する</li>
 <li>Container Runtime: コンテナの実行や状態管理を行うシステム
 <ul>
-<li><code>containerd</code>: 高レベルコンテナランタイム</li>
-<li><code>runc</code>: 低レベルコンテナランタイム</li>
+<li><code>containerd</code>: 高レベルコンテナランタイム, CRI Runtime</li>
+<li><code>runc</code>: 低レベルコンテナランタイム, OCI Runtime</li>
 </ul>
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dockerでいろんなコンテナを実行する"><a class="header" href="#dockerでいろんなコンテナを実行する">Dockerでいろんなコンテナを実行する</a></h1>
-<p>実際に<code>docker container run</code> コマンドを使用してコンテナを実行する．</p>
+<p>実際に<code>docker container run</code> コマンドを使用してコンテナを実行する．
+今回実行するコンテナイメージはすべて <a href="https://hub.docker.com/">DockerHub</a> のものを用いる．</p>
 <ul>
 <li>Ubuntu</li>
 <li>Nginx</li>
@@ -504,7 +506,7 @@ Server: Docker Engine - Community
 <h2 id="ubuntuの実行"><a class="header" href="#ubuntuの実行">Ubuntuの実行</a></h2>
 <p>Ubuntuのイメージを使用したコンテナでbashを起動する</p>
 <pre><code class="language-bash">                            ↓ コンテナイメージ
-$ docker container run -it ubuntu:20.04 bash
+docker container run -it ubuntu:20.04 bash
                                         ↑ コンテナ内で実行するコマンド
 </code></pre>
 <p>今回はbashのような対話シェルを実行するため，以下のようなオプションが必要になる．</p>
@@ -560,48 +562,11 @@ docker container run --name jupyterlab --rm -p 8888:8888 \
 <div style="break-before: page; page-break-before: always;"></div><h1 id="webアプリケーションをコンテナ化する"><a class="header" href="#webアプリケーションをコンテナ化する">Webアプリケーションをコンテナ化する</a></h1>
 <p>Goで書いたシンプルなWebアプリケーションをコンテナ化して実行する．
 コンテナイメージの作成には <code>docker image build(docker build)</code> コマンドを使用する．</p>
-<pre><code class="language-go">package main
-
-import (
-  &quot;net/http&quot;
-  &quot;github.com/labstack/echo/v4&quot;
-  &quot;github.com/labstack/echo/v4/middleware&quot;
-)
-
-func main() {
-  e := echo.New()
-
-  e.Use(middleware.Logger())
-  e.Use(middleware.Recover())
-
-  e.GET(&quot;/&quot;, hello)
-
-  e.Logger.Fatal(e.Start(&quot;:1323&quot;))
-}
-
-func hello(c echo.Context) error {
-  return c.String(http.StatusOK, &quot;Hello, World!&quot;)
-}
+<pre><code class="language-go">{{#include ../samples/docker/go-webapp/main.go}}
 </code></pre>
 <p>各行の先頭に書いてあるのはDockerfile特有の命令である．
 それぞれの命令の詳細は公式ドキュメント[2]を読むことを勧める．</p>
-<pre><code>FROM golang:1.17-bullseye
-
-WORKDIR /src
-
-RUN apt-get update &amp;&amp; \
-    apt-get install make &amp;&amp; \
-    apt-get clean &amp;&amp; \
-    rm -rf /var/lib/apt/lists/*
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-ENTRYPOINT [&quot;/src/bin/go-webapp&quot;]
+<pre><code>{{#include ../samples/docker/go-webapp/Dockerfile.singlestage}}
 </code></pre>
 <ul>
 <li><code>FROM golang:1.17-buster</code>: ベースとなるコンテナイメージである．Golangが入ったDebian 10上に構築する．</li>
@@ -635,27 +600,7 @@ curl http://localhost:1323
 <li>コンパイルしたファイルを軽量なコンテナイメージ(Alpine Linux, Distroless, scratch)内にコピーする</li>
 </ol>
 <p>という2段階でコンテナイメージをビルドするようにすると，コンテナイメージのサイズを小さくすることが可能になる．</p>
-<pre><code>FROM golang:1.17-bullseye as builder
-
-WORKDIR /src
-
-RUN apt-get update &amp;&amp; \
-    apt-get install make &amp;&amp; \
-    apt-get clean &amp;&amp; \
-    rm -rf /var/lib/apt/lists/*
-
-COPY go.mod go.mod
-COPY go.sum go.sum
-RUN go mod download
-
-COPY . /src
-RUN make build
-
-FROM gcr.io/distroless/base-debian11
-
-COPY --from=builder /src/bin/* /
-
-ENTRYPOINT [&quot;/go-webapp&quot;]
+<pre><code>{{#include ../samples/docker/go-webapp/Dockerfile.multistage}}
 </code></pre>
 <ul>
 <li><code>FROM gcr.io/distroless/base-debian11</code>: アプリケーションを実行するためのコンテナイメージを定義する．Goのバイナリを実行するだけであればGoの環境はいらないため，軽量なイメージにバイナリだけコピーして実行する．</li>
@@ -678,38 +623,12 @@ go-webapp                         singlestage     2e402f9e54ba   29 seconds ago 
 <li>できるだけイメージや依存関係を最小限にする．</li>
 </ul>
 <p>他にも気をつけるべきことは多いが今回は割愛する．
-コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．</p>
+<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">コンテナイメージを作るときのベストプラクティス</a>があるため，読むことをすすめる．</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="docker-composeの紹介"><a class="header" href="#docker-composeの紹介">Docker Composeの紹介</a></h1>
 <p>Docker Composeは複数のコンテナの構成を1つのYAML形式のファイルで定義して管理することができます．
 Webアプリケーションを例に取ると，フロントエンド，バックエンド，DBなどのコンテナを定義して，1つのサービスとして管理できます．</p>
 <p>docker-compose.yamlの例</p>
-<pre><code class="language-yaml">version: '3'
-
-services:
-   db:
-     image: mysql:5.7
-     volumes:
-       - db_data:/var/lib/mysql
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: wordpress
-       MYSQL_DATABASE: wordpress
-       MYSQL_USER: wordpress
-       MYSQL_PASSWORD: wordpress
-
-   wordpress:
-     depends_on:
-       - db
-     image: wordpress:latest
-     ports:
-       - &quot;8000:80&quot;
-     restart: always
-     environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_USER: wordpress
-       WORDPRESS_DB_PASSWORD: wordpress
-volumes:
-    db_data:
+<pre><code class="language-yaml">{{#include ../samples/docker/wordpress/docker-compose.yaml}}
 </code></pre>
 <p>かんたんなチートシート</p>
 <pre><code class="language-bash"># 起動
@@ -733,12 +652,6 @@ docker compose down
 <h2 id="演習課題2-好きなソフトウェアのコンテナイメージを作る"><a class="header" href="#演習課題2-好きなソフトウェアのコンテナイメージを作る">演習課題2: 好きなソフトウェアのコンテナイメージを作る</a></h2>
 <p>自作のアプリケーションや既にあるアプリケーションでも良いので
 コンテナ上で実行できるようにしてください．</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h1>
-<ul>
-<li>[1] Docker, inc., What is Container?, https://www.docker.com/resources/what-container</li>
-<li>[2] Docker, inc., Dockerfile reference, https://docs.docker.com/engine/reference/builder/</li>
-<li>[3] Docker, inc., Dockerfile Best practice, https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</li>
-</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contianer-hacks-tbd"><a class="header" href="#contianer-hacks-tbd">Contianer Hacks (TBD)</a></h1>
 <p>この章では，コンテナ型仮想化のコア技術を使ったハックをいくつか紹介する．
 本章では，システムソフトウェアをコンテナで動かすときのHackやコンテナのセキュリティ機能について紹介する．:</p>
@@ -746,13 +659,13 @@ docker compose down
 <p>コンテナ型仮想化技術は，軽量な仮想環境として様々なところで利用されている．
 その中でもDockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになるなどのメリットになる．
 Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
-研究システムの再現性を上げることにもなる．
+DockerfileをGitなどで共有することは研究システムの再現性を上げることにもなる．
 仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
 <p>Dockerコンテナを本番環境で運用するという事例も増えている．
 AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
 <p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
-そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良い．</p>
-<p>WindowsやmacOSでDockerをためしたいのであれば，
+そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良い．
+WindowsやmacOSでDockerをためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
 WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うのがおすすめである．</p>
 
