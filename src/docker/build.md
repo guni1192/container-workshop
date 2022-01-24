@@ -91,4 +91,4 @@ go-webapp                         singlestage     2e402f9e54ba   29 seconds ago 
 - できるだけイメージや依存関係を最小限にする．
 
 他にも気をつけるべきことは多いが今回は割愛する．
-コンテナをビルドする際のベストプラクティス[3]があるため，読むことをすすめる．
+[コンテナイメージを作るときのベストプラクティス](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)があるため，読むことをすすめる．
