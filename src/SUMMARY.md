@@ -15,4 +15,6 @@
 - [Container Hacks (TBD)](./container-hacks/introduction.md)
     - [procfs と コンテナ](./container-hacks/procfs.md)
     - [Linux Capability](./container-hacks/capabilities.md)
+    - [Host Namespace](./container-hacks/host-namespace.md)
+    - [Seccomp](./container-hacks/seccomp.md)
 - [おわりに](./conclusion.md)
