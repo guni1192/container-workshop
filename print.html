@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -163,7 +163,7 @@
 <ol>
 <li>コンテナ型仮想化概論</li>
 <li>Docker入門</li>
-<li>Container Hacks (TBD)</li>
+<li>Container Hacks</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="コンテナ勉強会-概論編"><a class="header" href="#コンテナ勉強会-概論編">コンテナ勉強会 概論編</a></h1>
 <h2 id="仮想マシン"><a class="header" href="#仮想マシン">仮想マシン</a></h2>
@@ -735,17 +735,15 @@ docker compose down
 <h2 id="演習課題2-好きなソフトウェアのコンテナイメージを作る"><a class="header" href="#演習課題2-好きなソフトウェアのコンテナイメージを作る">演習課題2: 好きなソフトウェアのコンテナイメージを作る</a></h2>
 <p>自作のアプリケーションや既にあるアプリケーションでも良いので
 コンテナ上で実行できるようにしてください．</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="contianer-hacks-tbd"><a class="header" href="#contianer-hacks-tbd">Contianer Hacks (TBD)</a></h1>
-<p>本章では，システムソフトウェアをコンテナで動かすときのHackやコンテナのセキュリティ機能について紹介する．:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="contianer-hacks"><a class="header" href="#contianer-hacks">Contianer Hacks</a></h1>
+<p>本章では，システムソフトウェアをコンテナで動かすときのHackやコンテナのセキュリティ機能について紹介する．</p>
 <ul>
 <li>procfs と コンテナ</li>
 <li>capability</li>
 <li>seccomp</li>
-<li>–net=host</li>
-<li>–uts=host</li>
-<li>–pid=host</li>
-<li>docker in docker</li>
-<li>privilege escalation</li>
+<li>host namespace</li>
+<li>docker in docker (TBD)</li>
+<li>privilege escalation (TBD)</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="procfs-と-コンテナ"><a class="header" href="#procfs-と-コンテナ">procfs と コンテナ</a></h1>
 <p><code>procfs</code> ( proc ファイルシステム)は，Linux の疑似ファイルシステムである．
