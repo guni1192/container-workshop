@@ -11,7 +11,7 @@
     - [コンテナイメージを作成する](./docker/build.md)
     - [複数のコンテナを管理する](./docker/compose.md)
     - [演習問題](./docker/execises.md)
-- [Container Hacks (TBD)](./container-hacks/introduction.md)
+- [Container Hacks](./container-hacks/introduction.md)
     - [procfs と コンテナ](./container-hacks/procfs.md)
     - [Linux Capability](./container-hacks/capabilities.md)
     - [Host Namespace](./container-hacks/host-namespace.md)
