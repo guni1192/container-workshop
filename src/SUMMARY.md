@@ -1,5 +1,4 @@
 # Summary
-
 - [README](../README.md)
 - [コンテナ型仮想化概論](./containerization/introduction.md)
     - [コンテナの歴史](./containerization/container-history.md)
