@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -736,21 +736,176 @@ docker compose down
 <p>自作のアプリケーションや既にあるアプリケーションでも良いので
 コンテナ上で実行できるようにしてください．</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contianer-hacks-tbd"><a class="header" href="#contianer-hacks-tbd">Contianer Hacks (TBD)</a></h1>
-<p>この章では，コンテナ型仮想化のコア技術を使ったハックをいくつか紹介する．
-本章では，システムソフトウェアをコンテナで動かすときのHackやコンテナのセキュリティ機能について紹介する．:</p>
+<p>本章では，システムソフトウェアをコンテナで動かすときのHackやコンテナのセキュリティ機能について紹介する．:</p>
+<ul>
+<li>procfs と コンテナ</li>
+<li>capability</li>
+<li>seccomp</li>
+<li>–net=host</li>
+<li>–uts=host</li>
+<li>–pid=host</li>
+<li>docker in docker</li>
+<li>privilege escalation</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="procfs-と-コンテナ"><a class="header" href="#procfs-と-コンテナ">procfs と コンテナ</a></h1>
+<p><code>procfs</code> ( proc ファイルシステム)は，Linux の疑似ファイルシステムである．
+プロセスごとの状態や，CPUやメモリなどの利用状況など見ることができる．</p>
+<p>基本的には <code>/proc</code> にマウントされており，コンテナの場合も例外ではない．
+コンテナの procfs からは PID Namespaceの分離によってホストの情報を見ることはできない．
+しかし，ホストからコンテナ内のプロセスを procfs を通じて見ることはできる．</p>
+<p>procfsを用いてコンテナ内の情報を確認し，デバッグなどに利用しよう．</p>
+<p>コンテナを実行する．</p>
+<pre><code>docker container run --rm -d -p 8080:80 nginx
+</code></pre>
+<p>ホストからNginxのプロセスIDを特定する</p>
+<pre><code>ps ax | grep nginx
+</code></pre>
+<p>以下のような実行結果が得られる．
+Nginxの master process の PID である 27103 をもとにプロセスの状態を調べていく．</p>
+<pre><code>  27103 ?        Ss     0:00 nginx: master process nginx -g daemon off;
+  27167 ?        S      0:00 nginx: worker process
+  27168 ?        S      0:00 nginx: worker process
+  27169 ?        S      0:00 nginx: worker process
+  27170 ?        S      0:00 nginx: worker process
+  27171 ?        S      0:00 nginx: worker process
+  27172 ?        S      0:00 nginx: worker process
+  27173 ?        S      0:00 nginx: worker process
+  27174 ?        S      0:00 nginx: worker process
+  27175 ?        S      0:00 nginx: worker process
+  27176 ?        S      0:00 nginx: worker process
+  27220 pts/0    S+     0:00 grep --color=auto nginx
+</code></pre>
+<p>まずは<code>/proc/$PID</code>のディレクトリを見てみる．</p>
+<pre><code>ls /proc/27103/
+</code></pre>
+<p>実行結果</p>
+<pre><code>arch_status  clear_refs       cwd      gid_map    maps        net        oom_score_adj  root       smaps         status         uid_map
+attr         cmdline          environ  io         mem         ns         pagemap        sched      smaps_rollup  syscall        wchan
+autogroup    comm             exe      limits     mountinfo   numa_maps  patch_state    schedstat  stack         task
+auxv         coredump_filter  fd       loginuid   mounts      oom_adj    personality    sessionid  stat          timers
+cgroup       cpuset           fdinfo   map_files  mountstats  oom_score  projid_map     setgroups  statm         timerslack_ns
+</code></pre>
+<p>この中の <code>root</code> というディレクトリにアクセスする．</p>
+<pre><code>sudo su
+cd /proc/27103/root
+ls
+</code></pre>
+<p>ls を実行したら以下のようなディレクトリが見える．
+これはコンテナイメージ内のルートディレクトリであることがわかる．
+ホストから直接コンテナ内のファイルにアクセスすることができる．
+シェルがコンテナイメージ内にない場合などのデバッグに用いると良いだろう．</p>
+<pre><code>bin  boot  dev  docker-entrypoint.d  docker-entrypoint.sh  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+</code></pre>
+<h2 id="演習"><a class="header" href="#演習">演習</a></h2>
+<ol>
+<li><code>/proc/$PID/fd/</code> を <code>ls -al</code> で見て，その内容はなにか考察せよ</li>
+<li><code>/proc/$PID/mounts</code> を <code>cat</code> で見て，その内容はなにか考察せよ</li>
+<li><code>/proc/$PID/ns/</code> を <code>ls -al</code> で見て，その内容はなにか考察せよ</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linux-capability"><a class="header" href="#linux-capability">Linux Capability</a></h1>
+<p>Capabilitiy はプロセスやファイルに対して，権限を細分化して適用できる．
+chroot システムコールを使うには特権が必要だが，root ユーザでなくとも CAP_SYS_CHROOT というCapabilityが与えられているなら使用することができる．
+root ユーザはすべてのCapability を持つ．
+Docker はホストに危険な影響を及ぼすような Capability は与えられていない．</p>
+<h2 id="pscap-のインストール"><a class="header" href="#pscap-のインストール">pscap のインストール</a></h2>
+<p>pscap はプロセスに与えられている capability を確認できるコマンドである．</p>
+<p>Ubuntuの場合</p>
+<pre><code>sudo apt-get install libcap-ng-utils
+</code></pre>
+<p>Fedoraの場合</p>
+<pre><code>sudo dnf install libcap-ng-utils
+</code></pre>
+<h2 id="コンテナ内で実行したプロセスの-capability-を見る"><a class="header" href="#コンテナ内で実行したプロセスの-capability-を見る">コンテナ内で実行したプロセスの Capability を見る</a></h2>
+<pre><code>docker container run -d fedora sleep 5 &gt;/dev/null; pscap | grep sleep
+</code></pre>
+<h2 id="cap_net_bind_service-を-drop-して-nginx-を実行"><a class="header" href="#cap_net_bind_service-を-drop-して-nginx-を実行">CAP_NET_BIND_SERVICE を drop して nginx を実行</a></h2>
+<pre><code>docker container run --cap-drop=net_bind_service --net=host nginx
+</code></pre>
+<h2 id="ping-をコンテナ内で実行"><a class="header" href="#ping-をコンテナ内で実行">ping をコンテナ内で実行</a></h2>
+<p>CAP_NET_RAW がある状態</p>
+<pre><code>docker container run -it \
+    guni1192/debug-tools:latest \
+    ping contianer-workshop.guni.dev
+</code></pre>
+<p>CAP_NET_RAW を drop した場合</p>
+<pre><code>docker container run --cap-drop=net_raw -it \
+    guni1192/debug-tools:latest \
+    ping contianer-workshop.guni.dev
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="host-namespace"><a class="header" href="#host-namespace">Host Namespace</a></h1>
+<p>コンテナは <a href="container-hacks/../containerization/linux-container.html">Linux Namespaces</a> によって様々なリソースを分離している．
+Namespace にはいろんな種類があるが，Dockerでは，Namespace の一部をホストと共有する事ができる．</p>
+<h2 id="--nethost"><a class="header" href="#--nethost"><code>--net=host</code></a></h2>
+<p><code>--net=host</code> オプションを用いて，Network Namespace をホストと同様のものを使ってコンテナを作成することができる．
+コンテナ内からホストのNICやルーティングテーブルを見ることができる．</p>
+<pre><code class="language-bash">docker container run --rm -it guni1192/debug-tools ip addr
+</code></pre>
+<pre><code class="language-bash">docker container run --rm --net=host -it guni1192/debug-tools ip addr
+</code></pre>
+<h2 id="--utshost"><a class="header" href="#--utshost"><code>--uts=host</code></a></h2>
+<p><code>--uts=host</code> オプションを用いて，UTS Namespace をホストと同様のものを使ってコンテナを作成することができる．
+コンテナ内からホストのhostnameを参照したり，変更できる．</p>
+<pre><code class="language-bash">docker container run --rm -it guni1192/debug-tools hostname
+</code></pre>
+<pre><code class="language-bash">docker container run --rm --uts=host -it guni1192/debug-tools hostname
+</code></pre>
+<h2 id="--pidhost"><a class="header" href="#--pidhost"><code>--pid=host</code></a></h2>
+<p><code>--pid=host</code> オプションを用いて，PID Namespace をホストと同様のものを使ってコンテナを作成することができる．
+コンテナ内からホストと同じ <code>/proc</code> の情報を見ることができる．</p>
+<pre><code class="language-bash">docker container run --rm -it guni1192/debug-tools ps auxf
+</code></pre>
+<pre><code class="language-bash">docker container run --rm --pid=host -it guni1192/debug-tools ps auxf
+</code></pre>
+<p><strong>Note</strong>: これらのオプションはコンテナ内からホストのリソースを利用できてしまうため，
+セキュリティホールになりやすい．そのため，できるだけ利用しないほうが良い．</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="seccomp"><a class="header" href="#seccomp">Seccomp</a></h1>
+<p>Seccomp は Linux のシステムコールフィルタ機構である．
+システムコールに対して，発行の許可，不許可，監査ログへの記録などのアクションを設定できる．
+Docker では，Seccomp Profile というJSON形式のフィルタルール定義ファイルをコンテナ起動時にロードすることで，
+Seccomp のルールを設定できる．</p>
+<pre><code class="language-bash">cd ./samples/docker/seccomp/
+</code></pre>
+<p><code>mkdir</code> システムコールが発行されたら EPERM を返すseccomp profile</p>
+<pre><code class="language-json">{
+  &quot;defaultAction&quot;: &quot;SCMP_ACT_ALLOW&quot;,
+  &quot;architectures&quot;: [
+    &quot;SCMP_ARCH_X86_64&quot;
+  ],
+  &quot;syscalls&quot;: [
+    {
+      &quot;names&quot;: [
+          &quot;mkdir&quot;
+      ],
+      &quot;action&quot;: &quot;SCMP_ACT_ERRNO&quot;,
+      &quot;errRet&quot;: 1
+    }
+  ]
+}
+</code></pre>
+<p>Seccomp Profile を指定してコンテナを実行する</p>
+<pre><code class="language-bash">docker run -it --security-opt seccomp=$(pwd)/seccomp-profile.json ubuntu:20.04 bash
+</code></pre>
+<p>コンテナ内でmkdir コマンドを実行してディレクトリが作成できるか試す．</p>
+<pre><code>root@d018f93240d2:/# mkdir foo
+mkdir: cannot create directory 'foo': Operation not permitted
+root@d018f93240d2:/#
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="おわりに"><a class="header" href="#おわりに">おわりに</a></h1>
 <p>コンテナ型仮想化技術は，軽量な仮想環境として様々なところで利用されている．
 その中でもDockerを使用した開発は，開発環境の用意やチーム開発がかなりスムーズになるなどのメリットになる．
-Dockerfileさえ用意していればチーム内で同じ環境が用意できるので，トラブルシュートなどでも役立つのでぜひ活用してほしい．
+Dockerfile をGit管理してチーム内で開発環境を共有すれば，依存関係のトラブルを少なくしたり，
+トラブルシュートなどでも役立つのでぜひ活用してほしい．
 DockerfileをGitなどで共有することは研究システムの再現性を上げることにもなる．
 仮想マシンのようにOSやミドルウェアなど，大量の関心事に縛られることなく，アプリケーションの開発に専念できることもメリットとして挙げられる．</p>
 <p>Dockerコンテナを本番環境で運用するという事例も増えている．
-AmazonのElastic Container ServiceやKubernetesを利用し，疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
+Amazonの Elastic Container Service や Kubernetesを 利用し，
+疎結合な分散システムを構築するための有力なプラクティスとして，多数の企業で使用されている．</p>
 <p>今後はコンテナで運用することが前提となる企業も多くなるだろう．
 そのため，研究システムやツールの開発などで使ってDockerやコンテナ周辺の技術に慣れていくと良い．
-WindowsやmacOSでDockerをためしたいのであれば，
+Windows や macOS で Docker をためしたいのであれば，
 Docker Desktopをインストールしてみると良い．
-WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うのがおすすめである．</p>
+WindowsであればWindows Subsytem for Linux 2(WSL2)を合わせて使うのがおすすめである．
+Docker も Git などと同様に使って覚えることが重要なので，普段の開発からできるだけ使ってみよう．</p>
 
                     </main>
 

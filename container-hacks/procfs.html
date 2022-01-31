@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>演習問題 - コンテナ勉強会</title>
+        <title>procfs と コンテナ - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="../containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="../containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="../containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="../containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="../containerization/execises.html" class="active"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="../docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="../docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="../docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="../container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="../container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="../container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="../conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="../containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="../containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="../containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="../containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="../containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="../docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="../docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="../docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../container-hacks/procfs.html" class="active"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="../container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="../container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="../container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="../conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,22 +143,71 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="演習問題"><a class="header" href="#演習問題">演習問題</a></h1>
+                        <h1 id="procfs-と-コンテナ"><a class="header" href="#procfs-と-コンテナ">procfs と コンテナ</a></h1>
+<p><code>procfs</code> ( proc ファイルシステム)は，Linux の疑似ファイルシステムである．
+プロセスごとの状態や，CPUやメモリなどの利用状況など見ることができる．</p>
+<p>基本的には <code>/proc</code> にマウントされており，コンテナの場合も例外ではない．
+コンテナの procfs からは PID Namespaceの分離によってホストの情報を見ることはできない．
+しかし，ホストからコンテナ内のプロセスを procfs を通じて見ることはできる．</p>
+<p>procfsを用いてコンテナ内の情報を確認し，デバッグなどに利用しよう．</p>
+<p>コンテナを実行する．</p>
+<pre><code>docker container run --rm -d -p 8080:80 nginx
+</code></pre>
+<p>ホストからNginxのプロセスIDを特定する</p>
+<pre><code>ps ax | grep nginx
+</code></pre>
+<p>以下のような実行結果が得られる．
+Nginxの master process の PID である 27103 をもとにプロセスの状態を調べていく．</p>
+<pre><code>  27103 ?        Ss     0:00 nginx: master process nginx -g daemon off;
+  27167 ?        S      0:00 nginx: worker process
+  27168 ?        S      0:00 nginx: worker process
+  27169 ?        S      0:00 nginx: worker process
+  27170 ?        S      0:00 nginx: worker process
+  27171 ?        S      0:00 nginx: worker process
+  27172 ?        S      0:00 nginx: worker process
+  27173 ?        S      0:00 nginx: worker process
+  27174 ?        S      0:00 nginx: worker process
+  27175 ?        S      0:00 nginx: worker process
+  27176 ?        S      0:00 nginx: worker process
+  27220 pts/0    S+     0:00 grep --color=auto nginx
+</code></pre>
+<p>まずは<code>/proc/$PID</code>のディレクトリを見てみる．</p>
+<pre><code>ls /proc/27103/
+</code></pre>
+<p>実行結果</p>
+<pre><code>arch_status  clear_refs       cwd      gid_map    maps        net        oom_score_adj  root       smaps         status         uid_map
+attr         cmdline          environ  io         mem         ns         pagemap        sched      smaps_rollup  syscall        wchan
+autogroup    comm             exe      limits     mountinfo   numa_maps  patch_state    schedstat  stack         task
+auxv         coredump_filter  fd       loginuid   mounts      oom_adj    personality    sessionid  stat          timers
+cgroup       cpuset           fdinfo   map_files  mountstats  oom_score  projid_map     setgroups  statm         timerslack_ns
+</code></pre>
+<p>この中の <code>root</code> というディレクトリにアクセスする．</p>
+<pre><code>sudo su
+cd /proc/27103/root
+ls
+</code></pre>
+<p>ls を実行したら以下のようなディレクトリが見える．
+これはコンテナイメージ内のルートディレクトリであることがわかる．
+ホストから直接コンテナ内のファイルにアクセスすることができる．
+シェルがコンテナイメージ内にない場合などのデバッグに用いると良いだろう．</p>
+<pre><code>bin  boot  dev  docker-entrypoint.d  docker-entrypoint.sh  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+</code></pre>
+<h2 id="演習"><a class="header" href="#演習">演習</a></h2>
 <ol>
-<li>コンテナ型仮想化のメリット・デメリットを述べなさい</li>
-<li>コンテナとVMの違いについて答えなさい</li>
-<li>システムコンテナとアプリケーションコンテナの違いについて述べなさい</li>
+<li><code>/proc/$PID/fd/</code> を <code>ls -al</code> で見て，その内容はなにか考察せよ</li>
+<li><code>/proc/$PID/mounts</code> を <code>cat</code> で見て，その内容はなにか考察せよ</li>
+<li><code>/proc/$PID/ns/</code> を <code>ls -al</code> で見て，その内容はなにか考察せよ</li>
 </ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="../containerization/container-kind.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../container-hacks/introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="../docker/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../container-hacks/capabilities.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -168,11 +217,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="../containerization/container-kind.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../container-hacks/introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="../docker/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../container-hacks/capabilities.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>

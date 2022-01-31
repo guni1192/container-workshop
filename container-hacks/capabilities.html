@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>演習問題 - コンテナ勉強会</title>
+        <title>Linux Capability - コンテナ勉強会</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="../containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="../containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="../containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="../containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="../containerization/execises.html" class="active"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="../docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="../docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="../docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="../container-hacks/capabilities.html"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="../container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="../container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="../conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html"><strong aria-hidden="true">1.</strong> README</a></li><li class="chapter-item expanded "><a href="../containerization/introduction.html"><strong aria-hidden="true">2.</strong> コンテナ型仮想化概論</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../containerization/container-history.html"><strong aria-hidden="true">2.1.</strong> コンテナの歴史</a></li><li class="chapter-item expanded "><a href="../containerization/linux-container.html"><strong aria-hidden="true">2.2.</strong> Linuxにおけるコンテナ</a></li><li class="chapter-item expanded "><a href="../containerization/container-implementation.html"><strong aria-hidden="true">2.3.</strong> コンテナの実装</a></li><li class="chapter-item expanded "><a href="../containerization/container-kind.html"><strong aria-hidden="true">2.4.</strong> コンテナの種類</a></li><li class="chapter-item expanded "><a href="../containerization/execises.html"><strong aria-hidden="true">2.5.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../docker/introduction.html"><strong aria-hidden="true">3.</strong> Docker 入門</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../docker/run.html"><strong aria-hidden="true">3.1.</strong> コンテナを実行する</a></li><li class="chapter-item expanded "><a href="../docker/build.html"><strong aria-hidden="true">3.2.</strong> コンテナイメージを作成する</a></li><li class="chapter-item expanded "><a href="../docker/compose.html"><strong aria-hidden="true">3.3.</strong> 複数のコンテナを管理する</a></li><li class="chapter-item expanded "><a href="../docker/execises.html"><strong aria-hidden="true">3.4.</strong> 演習問題</a></li></ol></li><li class="chapter-item expanded "><a href="../container-hacks/introduction.html"><strong aria-hidden="true">4.</strong> Container Hacks (TBD)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../container-hacks/procfs.html"><strong aria-hidden="true">4.1.</strong> procfs と コンテナ</a></li><li class="chapter-item expanded "><a href="../container-hacks/capabilities.html" class="active"><strong aria-hidden="true">4.2.</strong> Linux Capability</a></li><li class="chapter-item expanded "><a href="../container-hacks/host-namespace.html"><strong aria-hidden="true">4.3.</strong> Host Namespace</a></li><li class="chapter-item expanded "><a href="../container-hacks/seccomp.html"><strong aria-hidden="true">4.4.</strong> Seccomp</a></li></ol></li><li class="chapter-item expanded "><a href="../conclusion.html"><strong aria-hidden="true">5.</strong> おわりに</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,22 +143,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="演習問題"><a class="header" href="#演習問題">演習問題</a></h1>
-<ol>
-<li>コンテナ型仮想化のメリット・デメリットを述べなさい</li>
-<li>コンテナとVMの違いについて答えなさい</li>
-<li>システムコンテナとアプリケーションコンテナの違いについて述べなさい</li>
-</ol>
+                        <h1 id="linux-capability"><a class="header" href="#linux-capability">Linux Capability</a></h1>
+<p>Capabilitiy はプロセスやファイルに対して，権限を細分化して適用できる．
+chroot システムコールを使うには特権が必要だが，root ユーザでなくとも CAP_SYS_CHROOT というCapabilityが与えられているなら使用することができる．
+root ユーザはすべてのCapability を持つ．
+Docker はホストに危険な影響を及ぼすような Capability は与えられていない．</p>
+<h2 id="pscap-のインストール"><a class="header" href="#pscap-のインストール">pscap のインストール</a></h2>
+<p>pscap はプロセスに与えられている capability を確認できるコマンドである．</p>
+<p>Ubuntuの場合</p>
+<pre><code>sudo apt-get install libcap-ng-utils
+</code></pre>
+<p>Fedoraの場合</p>
+<pre><code>sudo dnf install libcap-ng-utils
+</code></pre>
+<h2 id="コンテナ内で実行したプロセスの-capability-を見る"><a class="header" href="#コンテナ内で実行したプロセスの-capability-を見る">コンテナ内で実行したプロセスの Capability を見る</a></h2>
+<pre><code>docker container run -d fedora sleep 5 &gt;/dev/null; pscap | grep sleep
+</code></pre>
+<h2 id="cap_net_bind_service-を-drop-して-nginx-を実行"><a class="header" href="#cap_net_bind_service-を-drop-して-nginx-を実行">CAP_NET_BIND_SERVICE を drop して nginx を実行</a></h2>
+<pre><code>docker container run --cap-drop=net_bind_service --net=host nginx
+</code></pre>
+<h2 id="ping-をコンテナ内で実行"><a class="header" href="#ping-をコンテナ内で実行">ping をコンテナ内で実行</a></h2>
+<p>CAP_NET_RAW がある状態</p>
+<pre><code>docker container run -it \
+    guni1192/debug-tools:latest \
+    ping contianer-workshop.guni.dev
+</code></pre>
+<p>CAP_NET_RAW を drop した場合</p>
+<pre><code>docker container run --cap-drop=net_raw -it \
+    guni1192/debug-tools:latest \
+    ping contianer-workshop.guni.dev
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="../containerization/container-kind.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../container-hacks/procfs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="../docker/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../container-hacks/host-namespace.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -168,11 +192,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="../containerization/container-kind.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../container-hacks/procfs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="../docker/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../container-hacks/host-namespace.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>
